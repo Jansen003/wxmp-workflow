@@ -58,15 +58,16 @@ wxmp-workflow/
 │   ├── wxmp-writing.md         # 撰写 + 打磨 + 配图 + 排版
 │   ├── wxmp-tools.md           # 增强工具（标题/摘要/体检/标签）
 │   └── wxmp-publishing.md      # 发布 + 预览 + 复盘
-├── scripts/                    # 微信 API 脚本
+├── scripts/                    # API 脚本
 │   ├── wx-auth.sh              # 获取/缓存 access_token
 │   ├── wx-upload-image.sh      # 上传封面图素材
 │   ├── wx-draft.sh             # 创建草稿
 │   ├── wx-publish.sh           # 发布文章
 │   ├── wx-stats.sh             # 查询数据统计
 │   ├── wx-articles.sh          # 获取已发布文章列表
-│   └── wx-article-stats.sh     # 查询单篇文章详细数据
-├── templates/
+│   ├── wx-article-stats.sh     # 查询单篇文章详细数据
+│   └── wx-generate-image.sh    # Agnes AI 图片生成
+├── templates/                  # 5 个精美 HTML 模板
 │   └── article.html            # 公众号兼容的 HTML 模板
 └── output/                     # 生成的文章输出目录
 ```
@@ -93,6 +94,9 @@ bash scripts/wx-stats.sh --recent 7                  # 最近7天
 # 已发布文章管理
 bash scripts/wx-articles.sh                          # 获取已发布文章列表
 bash scripts/wx-article-stats.sh --recent 7          # 单篇文章详细数据
+
+# AI 图片生成（需要配置 Agnes API Key）
+bash scripts/wx-generate-image.sh --prompt "图片描述" --size 1024x768
 ```
 
 ## 注意事项

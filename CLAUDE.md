@@ -18,7 +18,7 @@ This is **not** a traditional codebase with build/test commands. It's a skill de
 
 **references/** contains detailed instructions for each workflow phase. SKILL.md points here when the agent needs specifics. Files use `wxmp-` prefix to avoid naming conflicts.
 
-**scripts/** are shell scripts (curl + jq) for WeChat MP API interaction. All read config from `config/wxmp.json`. Key scripts:
+**scripts/** are shell scripts (curl + jq) for API interaction. All read config from `config/wxmp.json`. Key scripts:
 - `wx-auth.sh` — token management with 2-hour cache in `/tmp/wxmp-token.json`
 - `wx-upload-image.sh` — upload images to WeChat material system
 - `wx-draft.sh` — create draft articles
@@ -26,6 +26,14 @@ This is **not** a traditional codebase with build/test commands. It's a skill de
 - `wx-stats.sh` — daily summary stats (API limit: 1-day max per query, script auto-loops)
 - `wx-articles.sh` — list published articles
 - `wx-article-stats.sh` — per-article detailed stats (7-day max range)
+- `wx-generate-image.sh` — Agnes AI image generation (文生图)
+
+**templates/** contains 5 beautiful HTML templates with inline styles:
+- `minimal-white.html` — clean, lots of whitespace (tutorials, guides)
+- `magazine.html` — elegant, editorial style (deep articles, opinions)
+- `dark-mode.html` — dark background, tech feel (tech, programming)
+- `card-style.html` — modular cards, easy to scan (lists, roundups)
+- `gradient.html` — colorful gradients, youthful (lifestyle, stories)
 
 **templates/article.html** is the WeChat-compatible HTML template with inline styles (WeChat strips external CSS/JS).
 
@@ -42,10 +50,12 @@ This is **not** a traditional codebase with build/test commands. It's a skill de
 ## Configuration
 
 ```bash
-cp config/wxmp.example.json config/wxmp.json  # then fill in AppID + Secret
+cp config/wxmp.example.json config/wxmp.json  # then fill in AppID + Secret + Agnes API Key
 ```
 
-The config file contains secrets and is gitignored.
+The config file contains secrets and is gitignored. Required fields:
+- `appid` / `secret` — WeChat Official Account API credentials
+- `agnes_api_key` — Agnes AI API key for image generation (optional)
 
 ## Modifying the Skill
 
