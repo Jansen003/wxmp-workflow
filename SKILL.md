@@ -131,6 +131,8 @@ allowed-tools:
 
 **图片来源：** 用户自己提供 / 用 Agnes AI 生成
 
+**图片内容限制：** 所有配图（含封面图）不能出现真人，动画/插画/卡通人物不受限。AI 生成时 prompt 加 `no real people`
+
 **用 Agnes AI 生成图片：**
 ```bash
 bash scripts/wx-generate-image.sh --prompt "图片描述" --size 1024x768
