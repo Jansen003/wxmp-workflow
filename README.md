@@ -40,6 +40,7 @@ cp config/wxmp.example.json config/wxmp.json
 
 在 Claude Code 中说：
 
+- "帮我配置" — 配置助手，引导完成公众号 API、Agnes AI、Wechatsync 设置
 - "帮我写篇公众号" — 完整流程
 - "帮我写篇关于 AI 的文章" — 跳过选题
 - "帮我想几个标题" — 单独调用工具
@@ -59,7 +60,8 @@ wxmp-workflow/
 │   ├── wxmp-writing.md         # 撰写 + 打磨 + 配图 + 排版
 │   ├── wxmp-tools.md           # 增强工具（标题/摘要/体检/标签）
 │   ├── wxmp-publishing.md      # 发布 + 预览 + 复盘
-│   └── wxmp-sync.md            # 多平台同步（Wechatsync）
+│   ├── wxmp-sync.md            # 多平台同步（Wechatsync）
+│   └── wxmp-setup.md           # 配置助手（前置准备指南）
 ├── scripts/                    # API 脚本
 │   ├── wx-auth.sh              # 获取/缓存 access_token
 │   ├── wx-upload-image.sh      # 上传封面图素材

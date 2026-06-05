@@ -17,7 +17,7 @@ This is **not** a traditional codebase with build/test commands. It's a skill de
 - The 9-step workflow overview with pointers to reference docs
 - De-AI-flavor checking (4-round scan: feature words, structure, style, human touch)
 
-**references/** contains detailed instructions for each workflow phase. SKILL.md points here when the agent needs specifics. Files use `wxmp-` prefix to avoid naming conflicts. The polishing phase (`wxmp-writing.md`) includes a mandatory de-AI-flavor step — 4-round scan covering feature words, structure, style, and human touch. The scan details and replacement tables are in `wxmp-tools.md`.
+**references/** contains detailed instructions for each workflow phase. SKILL.md points here when the agent needs specifics. Files use `wxmp-` prefix to avoid naming conflicts. The polishing phase (`wxmp-writing.md`) includes a mandatory de-AI-flavor step — 4-round scan covering feature words, structure, style, and human touch. The scan details and replacement tables are in `wxmp-tools.md`. The setup guide (`wxmp-setup.md`) walks users through configuring WeChat API, Agnes AI, and Wechatsync.
 
 **scripts/** are shell scripts (curl + jq) for API interaction. All read config from `config/wxmp.json`. Key scripts:
 - `wx-auth.sh` — token management with 2-hour cache in `/tmp/wxmp-token.json`
