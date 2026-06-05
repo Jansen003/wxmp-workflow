@@ -2,7 +2,7 @@
 
 > 微信公众号全流程工作流 — 从灵感到发布，一站式完成
 
-一个 Claude Code skill，帮你完成公众号内容创作的全链路：
+一个 AI Agent skill，帮你完成公众号内容创作的全链路。兼容 Claude Code、Cursor、Windsurf 等支持 skill 的 Agent 工具：
 
 ```
 选题 → 调研 → 大纲 → 写稿 → 打磨 → 配图 → 排版 → 发布 → 复盘 → 多平台同步
@@ -38,7 +38,7 @@ npx skills add SoulChildTc/wxmp-workflow
 
 ### 2. 使用
 
-在 Claude Code 中先调用 skill，再输入指令：
+在支持 skill 的 Agent 工具中调用 skill，再输入指令：
 
 ```
 > /wxmp-workflow
