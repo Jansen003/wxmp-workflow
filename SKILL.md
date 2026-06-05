@@ -246,4 +246,4 @@ cp config/wxmp.example.json config/wxmp.json
 
 配置文件包含敏感信息，已在 `.gitignore` 中排除。
 
-用户说"帮我配置"或"配置助手"时，按 `references/wxmp-setup.md` 引导用户逐项完成配置（公众号 API、Agnes AI、Wechatsync）。
+用户说"帮我配置"或"配置助手"时，先检查 `config/wxmp.json` 中哪些已配置、哪些缺失，只引导用户配置缺失的部分。可选功能（Agnes AI、Wechatsync）逐个询问是否需要，用户说不要就跳过。详见 `references/wxmp-setup.md`。
