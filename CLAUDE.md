@@ -21,7 +21,7 @@ This is **not** a traditional codebase with build/test commands. It's a skill de
 **scripts/** are shell scripts (curl + jq) for API interaction. All read config from `config/wxmp.json`. Key scripts:
 - `wx-auth.sh` — token management with 2-hour cache in `/tmp/wxmp-token.json`
 - `wx-upload-image.sh` — upload images to WeChat material system
-- `wx-draft.sh` — create draft articles
+- `wx-draft.sh` — create or update draft articles (use `--media-id` to update existing draft)
 - `wx-publish.sh` — publish with async status polling
 - `wx-stats.sh` — daily summary stats (API limit: 1-day max per query, script auto-loops)
 - `wx-articles.sh` — list published articles
@@ -39,6 +39,7 @@ Templates are designed for WeChat dark/light mode compatibility: no background c
 
 ## Key Constraints
 
+- **One conversation, one article** — first `wx-draft.sh` call creates a draft and returns `media_id`; all subsequent operations (update, publish) reuse that same `media_id`. Refuse if the user tries to start a second article in the same conversation.
 - WeChat HTML content must use **inline styles only** — no `<link>`, `<style>`, `<script>`, `<iframe>`
 - Images must be uploaded to WeChat's material system first (via `wx-upload-image.sh`), then referenced by CDN URL
 - `access_token` expires every 2 hours; `wx-auth.sh` caches it in `/tmp/wxmp-token.json`
