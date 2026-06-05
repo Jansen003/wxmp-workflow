@@ -36,6 +36,12 @@
 npx skills add SoulChildTc/wxmp-workflow
 ```
 
+更新到最新版本：
+
+```bash
+npx skills update wxmp-workflow
+```
+
 ### 2. 使用
 
 在支持 skill 的 Agent 工具中调用 skill，再输入指令：
