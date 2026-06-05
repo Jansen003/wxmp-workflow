@@ -100,14 +100,17 @@ if [ -n "$DRAFT_MEDIA_ID" ]; then
     '{
       media_id: $media_id,
       index: 0,
-      articles: {
-        title: $title,
-        author: $author,
-        content: $content,
-        thumb_media_id: $thumb,
-        need_open_comment: $comment,
-        only_fans_can_comment: $fans_only
-      }
+      articles: (
+        {
+          title: $title,
+          author: $author,
+          content: $content,
+          thumb_media_id: $thumb,
+          need_open_comment: $comment,
+          only_fans_can_comment: $fans_only
+        }
+        + (if $digest != "" then {digest: $digest} else {} end)
+      )
     }')
 
   RESPONSE=$(curl -sf \
@@ -137,15 +140,17 @@ else
     --argjson comment "$COMMENT" \
     --argjson fans_only "$FANS_ONLY" \
     '{
-      articles: [{
-        title: $title,
-        author: $author,
-        content: $content,
-        thumb_media_id: $thumb,
-        need_open_comment: $comment,
-        only_fans_can_comment: $fans_only
-      }]
-      + (if $digest != "" then {digest: $digest} else {} end)
+      articles: [
+        {
+          title: $title,
+          author: $author,
+          content: $content,
+          thumb_media_id: $thumb,
+          need_open_comment: $comment,
+          only_fans_can_comment: $fans_only
+        }
+        + (if $digest != "" then {digest: $digest} else {} end)
+      ]
     }')
 
   RESPONSE=$(curl -sf \

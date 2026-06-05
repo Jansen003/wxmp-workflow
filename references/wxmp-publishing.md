@@ -25,11 +25,19 @@ bash scripts/wx-auth.sh
 
 ### 2. 上传封面图
 
+上传封面图时**必须指定 `thumb` 类型**，否则上传的是正文图片，创建草稿时会报错：
+
 ```bash
-bash scripts/wx-upload-image.sh /path/to/cover-image.jpg
+bash scripts/wx-upload-image.sh /path/to/cover-image.jpg thumb
 ```
 
 返回 `thumb_media_id`，用于创建草稿。
+
+**两种类型的区别：**
+- `thumb`（封面图）：创建草稿时用，返回 `media_id`
+- `image`（正文图片）：文章内插图用，返回 `media_id` + `url`
+
+不传第二个参数默认是 `image`。
 
 **要求：**
 - 封面图推荐尺寸 900×383（2.35:1 比例）

@@ -43,7 +43,7 @@ allowed-tools:
 
 **半自动卡点：** 选题确认、大纲确认、初稿审阅、体检报告、标题选择、发布确认
 
-**全自动策略：** 选最匹配的题、按大纲直接写、根据体检报告自动优化、优先选爆款潜力最高的标题、标题与内容对齐、跳过预览直接发
+**全自动策略：** 选最匹配的题、按大纲直接写、根据体检报告自动优化、优先选爆款潜力最高的标题（口语法 > 好奇法 > 痛点法）、标题与内容对齐、跳过预览直接发
 
 ## 意图路由
 
@@ -169,8 +169,8 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 通过 shell 脚本自动化发布，或引导用户手动发布。
 
 ```bash
-bash scripts/wx-auth.sh                                    # 获取 token
-bash scripts/wx-upload-image.sh /path/to/cover.jpg         # 上传封面图
+bash scripts/wx-auth.sh                                          # 获取 token
+bash scripts/wx-upload-image.sh /path/to/cover.jpg thumb         # 上传封面图（注意 thumb 类型）
 
 # 第一次创建草稿（记住返回的 media_id）
 bash scripts/wx-draft.sh --title "标题" --content output/xxx.html --thumb MEDIA_ID
