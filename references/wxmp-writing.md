@@ -157,7 +157,13 @@
 bash scripts/wx-upload-image.sh /path/to/image.jpg
 ```
 
-上传后用微信返回的 CDN 地址作为 `<img src="...">`。
+上传后脚本返回微信 CDN 地址。**把这个地址记下来**，后续排版时直接用，不要再去本地找文件或重新生成图片。
+
+**重要：** 图片只需生成和上传一次。上传成功后，本地文件不再需要，文章中统一用 CDN 地址：
+
+```html
+<img src="https://mmbiz.qpic.cn/xxx" style="width: 100%; border-radius: 8px; margin: 15px 0;" />
+```
 
 如果暂时无法上传（没配置 API），先用占位符标注图片位置，提醒用户后续手动添加：
 
@@ -185,7 +191,9 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 
 ## 转换为公众号 HTML
 
-用户确认文章后，按以下步骤转为公众号可用的 HTML：
+用户确认文章后，按以下步骤转为公众号可用的 HTML。
+
+**图片处理：** 排版时直接使用配图阶段上传后获得的 CDN 地址，不要再去本地找文件或重新生成图片。如果图片还没上传，先上传再排版。
 
 ### 1. 读取模板
 
