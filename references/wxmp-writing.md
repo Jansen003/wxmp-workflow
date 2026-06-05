@@ -223,10 +223,22 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
   引用内容...
 </blockquote>
 
-<!-- 列表 -->
-<ul style="margin: 15px 0; padding-left: 20px; font-size: 16px; color: #333; line-height: 2;">
-  <li style="margin-bottom: 8px;">列表项</li>
-</ul>
+<!-- 悬挂缩进列表（普通短列表） -->
+<p style="font-size:15px; line-height:1.9; margin:0 0 12px; padding-left:1.2em; text-indent:-1.2em;">
+  <span style="color:#fa5151; font-weight:bold;">•</span>
+  <strong style="color:#1a1a1a;">关键词</strong> — 具体说明内容
+</p>
+<p style="font-size:15px; line-height:1.9; margin:0 0 12px; padding-left:1.2em; text-indent:-1.2em;">
+  <span style="color:#fa5151; font-weight:bold;">•</span>
+  <strong style="color:#1a1a1a;">关键词</strong> — 具体说明内容
+</p>
+
+<!-- 卡片式列表（重点功能清单、组件介绍） -->
+<section style="margin:0 0 12px; padding:12px 14px; border-left:3px solid #fa5151; background:#f7f7f7; border-radius:6px;">
+  <p style="font-size:15px; line-height:1.8; margin:0;">
+    <strong style="color:#fa5151;">关键词</strong> — 具体说明内容
+  </p>
+</section>
 
 <!-- 加粗 -->
 <strong style="color: #fa5151;">重点内容</strong>
@@ -235,6 +247,8 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 <img src="微信CDN地址" style="width: 100%; border-radius: 8px; margin: 15px 0;" />
 ```
 
+**列表标签限制：** 不要使用 `<ul>/<ol>/<li>`，公众号编辑器会特殊处理这些标签，可能导致空 bullet、样式剥离等兼容性问题。用上述模拟列表组件代替。
+
 ### 3. 替换模板占位符
 
 将转换后的正文 HTML 填入 `{{CONTENT}}`，填入标题、作者、日期。
@@ -242,3 +256,13 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 ### 4. 保存文件
 
 保存到 `output/{YYYY-MM-DD}-{标题关键词}.html`，例如 `output/2026-06-05-ai-writing-guide.html`。
+
+### 5. 创建草稿前验证
+
+保存 HTML 后，用 grep 检查是否包含列表标签：
+
+```bash
+grep -c '<ul\|<li\|<ol' output/xxx.html
+```
+
+如果命中（返回值 > 0），**必须替换为模拟列表组件**后再创建草稿。不要直接用 `<ul>/<li>` 提交草稿。
