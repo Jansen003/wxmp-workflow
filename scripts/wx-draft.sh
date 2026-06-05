@@ -30,15 +30,21 @@ else
   CONFIG_FILE="$PROJECT_DIR/config/wxmp.json"
 fi
 
-# 解析参数
+# 从配置文件读取默认值
 DRAFT_MEDIA_ID=""
 TITLE=""
 CONTENT_FILE=""
 THUMB_MEDIA_ID=""
 AUTHOR=""
 DIGEST=""
-COMMENT=1
-FANS_ONLY=0
+COMMENT=""
+FANS_ONLY=""
+
+if [ -f "$CONFIG_FILE" ]; then
+  AUTHOR=$(jq -r '.author // ""' "$CONFIG_FILE")
+  COMMENT=$(jq -r '.default_comment // 1' "$CONFIG_FILE")
+  FANS_ONLY=$(jq -r '.default_fans_only_comment // 0' "$CONFIG_FILE")
+fi
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -57,6 +63,10 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+# 兜底默认值
+COMMENT="${COMMENT:-1}"
+FANS_ONLY="${FANS_ONLY:-0}"
+
 # 验证必填参数
 if [ -z "$TITLE" ]; then
   echo "❌ 缺少必填参数: --title" >&2
@@ -74,11 +84,6 @@ if [ -z "$THUMB_MEDIA_ID" ]; then
   echo "❌ 缺少必填参数: --thumb (封面图 media_id)" >&2
   echo "请先用 wx-upload-image.sh 上传封面图获取 media_id" >&2
   exit 1
-fi
-
-# 从配置文件读取默认作者
-if [ -z "$AUTHOR" ] && [ -f "$CONFIG_FILE" ]; then
-  AUTHOR=$(jq -r '.author // ""' "$CONFIG_FILE")
 fi
 
 # 读取 HTML 内容

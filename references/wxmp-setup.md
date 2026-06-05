@@ -220,4 +220,12 @@ wechatsync platforms --auth
 }
 ```
 
-只有 `appid` 和 `secret` 是发布必需的，其他都是可选功能。
+| 字段 | 说明 | 默认值 |
+|------|------|--------|
+| `appid` | 公众号 AppID | 发布必需 |
+| `secret` | 公众号 AppSecret | 发布必需 |
+| `author` | 文章作者名，创建草稿时自动填入 | 空 |
+| `default_comment` | 是否开启评论（1=开，0=关） | 1 |
+| `default_fans_only_comment` | 是否仅粉丝可评论（1=是，0=否） | 0 |
+| `agnes_api_key` | Agnes AI 图片生成 API Key | 可选 |
+| `wechatsync_platforms` | 多平台同步目标列表 | 可选 |
