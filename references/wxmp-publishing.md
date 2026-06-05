@@ -4,9 +4,12 @@
 
 ## 前置条件
 
-需要 `config/wxmp.json` 中配置好 AppID 和 Secret。
+1. `config/wxmp.json` 中配置好 AppID 和 Secret
+2. 公众号已完成**个人认证**，否则发布接口（freepublish）会返回 `48001 api unauthorized`
 
 获取方式：微信公众平台 → 我的业务与服务 → 公众号 → 开发密钥
+
+> ⚠️ 未认证的公众号只能创建草稿，不能通过 API 发布。发布需要手动去公众号后台：内容管理 → 草稿箱 → 找到草稿 → 点发布。
 
 ## 发布步骤
 
@@ -103,6 +106,7 @@ bash scripts/wx-publish.sh --media-id DRAFT_MEDIA_ID
 **发布是异步操作**，提交后需要等待。脚本会每 5 秒检查一次状态。
 
 **可能的错误：**
+- `48001 api unauthorized` — 公众号未完成个人认证，发布接口不可用。引导用户手动去公众号后台发布
 - `publish limit reached` — 当天发布次数已用完（订阅号1次/天，服务号4次/天）
 - 超时 — 可能仍在排队，稍后用 publish_id 手动查询状态
 - `freepublish not enabled` — 账号未开通发布功能

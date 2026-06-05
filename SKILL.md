@@ -168,6 +168,8 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 
 通过 shell 脚本自动化发布，或引导用户手动发布。
 
+> ⚠️ 发布 API 需要公众号完成个人认证。未认证时创建草稿正常，但发布会报 `48001 api unauthorized`，需引导用户手动去公众号后台发布。
+
 ```bash
 bash scripts/wx-auth.sh                                          # 获取 token
 bash scripts/wx-upload-image.sh /path/to/cover.jpg thumb         # 上传封面图（注意 thumb 类型）

@@ -70,6 +70,8 @@
 
 用于：自动创建草稿、发布文章、查询数据统计。
 
+> ⚠️ 注意：发布 API 需要公众号完成**个人认证**才能使用。未认证的公众号只能创建草稿，发布需手动操作。
+
 ### 获取方式
 
 1. 登录 [微信公众平台](https://developers.weixin.qq.com/console/index?tab1=business&tab2=dev)
