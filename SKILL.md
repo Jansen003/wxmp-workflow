@@ -68,7 +68,9 @@ allowed-tools:
 
 ### 1. 选题
 
-帮用户找到有价值的选题。三种来源可按需组合：热点话题、竞品分析、用户互动。
+帮用户找到有价值的选题。四种来源可按需组合：热点话题、国际新闻、竞品分析、用户互动。
+
+**国际新闻源**（国内可直接访问，时效性强）：TechCrunch、The Verge、Wired、Hacker News、Financial Times、Forbes、CNBC、AP News、CNN 等。详见 `references/wxmp-inspiration.md`
 
 **半自动：** 输出 5-10 个选题建议，让用户选择
 **全自动：** 自动选最匹配用户领域的选题

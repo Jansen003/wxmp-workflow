@@ -22,6 +22,39 @@
 - 热点的生命周期是否足够长（>3天）？
 - 是否有争议性或讨论空间？
 
+### 国际新闻源（可直接访问）
+
+国际新闻的时效性通常优于国内转载，适合抢先发现选题。以下站点在国内可直接访问（无需代理）：
+
+**科技类（推荐，更新快、与公众号受众重合度高）：**
+- TechCrunch (techcrunch.com) — 硅谷科技创业新闻
+- The Verge (theverge.com) — 消费科技、产品评测
+- Wired (wired.com) — 科技趋势、深度报道
+- Ars Technica (arstechnica.com) — 技术深度分析
+- Hacker News (news.ycombinator.com) — 技术社区热点
+- Product Hunt (producthunt.com) — 新产品发布
+
+**商业/财经类：**
+- Financial Times (ft.com) — 全球商业、金融
+- Forbes (forbes.com) — 商业、创业、财富
+- Fortune (fortune.com) — 商业、科技、管理
+- CNBC (cnbc.com) — 金融市场、商业
+- Business Insider (businessinsider.com) — 商业、科技
+- Nikkei (nikkei.com) — 亚洲商业（日经）
+
+**综合新闻类：**
+- AP News (apnews.com) — 美联社，全球新闻
+- CNN (cnn.com) — 全球综合新闻
+- France 24 (france24.com) — 法国视角国际新闻
+- DW (dw.com) — 德国之声，欧洲视角
+- Al Jazeera (aljazeera.com) — 中东及全球新闻
+- Straits Times (straitstimes.com) — 新加坡，东南亚视角
+
+**搜索策略：**
+- 用 WebSearch 搜索 `site:techcrunch.com AI` 等限定域名
+- 搜索英文关键词，结果更新更快
+- 找到国际热点后，搜索国内是否有相关讨论，判断信息差价值
+
 ## 竞品分析
 
 用户提供了竞品公众号名称时：
