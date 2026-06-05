@@ -27,14 +27,18 @@ npx skills add SoulChildTc/wxmp-workflow
 ### 2. 配置公众号 API（可选）
 
 ```bash
-cp config/wxmp.example.json config/wxmp.json
+# 放在项目目录（推荐）
+cp ~/.claude/skills/wxmp-workflow/config/wxmp.example.json config/wxmp.json
+
+# 或放在 skill 目录（所有项目共享）
+cp ~/.claude/skills/wxmp-workflow/config/wxmp.example.json ~/.claude/skills/wxmp-workflow/config/wxmp.json
 ```
 
-填入你的微信公众号 AppID 和 Secret。
+填入你的微信公众号 AppID 和 Secret。脚本会按优先级查找：当前项目目录 > Skill 目录。
 
 获取方式：微信公众平台 → 设置与开发 → 基本配置
 
-没有 API 也能用，只是发布环节需要手动操作。
+没有 API 也能用，只是发布环节需要手动操作。说"帮我配置"可以引导完成设置。
 
 ### 3. 使用
 

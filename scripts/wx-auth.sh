@@ -8,7 +8,13 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
-CONFIG_FILE="$PROJECT_DIR/config/wxmp.json"
+
+# 配置文件查找：当前目录优先，skill 目录兜底
+if [ -f "$PWD/config/wxmp.json" ]; then
+  CONFIG_FILE="$PWD/config/wxmp.json"
+else
+  CONFIG_FILE="$PROJECT_DIR/config/wxmp.json"
+fi
 TOKEN_CACHE="/tmp/wxmp-token.json"
 
 # 读取配置

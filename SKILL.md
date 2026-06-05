@@ -235,7 +235,10 @@ wechatsync sync output/xxx.html -p zhihu,juejin,csdn
 
 ## 配置说明
 
-首次使用需要配置：
+首次使用需要配置。配置文件 `config/wxmp.json` 支持两个位置（当前目录优先）：
+
+- **当前项目目录**：`{项目}/config/wxmp.json`
+- **Skill 目录**：`~/.claude/skills/wxmp-workflow/config/wxmp.json`
 
 ```bash
 cp config/wxmp.example.json config/wxmp.json

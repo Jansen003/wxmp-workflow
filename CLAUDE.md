@@ -57,6 +57,10 @@ Templates are designed for WeChat dark/light mode compatibility: no background c
 cp config/wxmp.example.json config/wxmp.json  # then fill in AppID + Secret + Agnes API Key
 ```
 
+Config file lookup order (first match wins):
+1. `{current_project}/config/wxmp.json` — user's project directory
+2. `~/.claude/skills/wxmp-workflow/config/wxmp.json` — skill installation directory
+
 The config file contains secrets and is gitignored. Required fields:
 - `appid` / `secret` — WeChat Official Account API credentials
 - `agnes_api_key` — Agnes AI API key for image generation (optional)

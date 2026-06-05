@@ -8,7 +8,12 @@
 
 ### 第 1 步：检查现有配置
 
-读取 `config/wxmp.json`，检查各项配置状态：
+读取 `config/wxmp.json`，检查各项配置状态。配置文件支持两个位置，按优先级查找：
+
+1. **当前项目目录**：`{项目}/config/wxmp.json`（用户自己的项目）
+2. **Skill 目录**：`~/.claude/skills/wxmp-workflow/config/wxmp.json`（skill 安装位置）
+
+配置状态检查：
 
 ```
 📋 配置检查
@@ -58,8 +63,16 @@
 
 ### 填入配置
 
+选择一个位置创建配置文件（二选一）：
+
+**方式 A：放在项目目录**（推荐，方便管理）
 ```bash
-cp config/wxmp.example.json config/wxmp.json
+cp ~/.claude/skills/wxmp-workflow/config/wxmp.example.json config/wxmp.json
+```
+
+**方式 B：放在 skill 目录**（所有项目共享）
+```bash
+cp ~/.claude/skills/wxmp-workflow/config/wxmp.example.json ~/.claude/skills/wxmp-workflow/config/wxmp.json
 ```
 
 编辑 `config/wxmp.json`：
