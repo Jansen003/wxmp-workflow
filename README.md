@@ -17,7 +17,11 @@
 
 ### 1. 安装
 
-将本目录放到 `~/.claude/skills/wxmp-workflow/`，或在 Claude Code 中通过 `/skill` 加载。
+```bash
+npx skills add SoulChildTc/wxmp-workflow
+```
+
+或手动安装：将本目录放到 `~/.claude/skills/wxmp-workflow/`。
 
 ### 2. 配置公众号 API（可选）
 
