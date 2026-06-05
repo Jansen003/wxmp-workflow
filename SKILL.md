@@ -245,7 +245,7 @@ cp config/wxmp.example.json config/wxmp.json
 # 然后填入真实的 AppID 和 Secret
 ```
 
-获取方式：微信公众平台 → 设置与开发 → 基本配置 → 开发者ID / 开发者密码
+获取方式：微信公众平台 → 我的业务与服务 → 公众号 → 开发密钥
 
 配置文件包含敏感信息，已在 `.gitignore` 中排除。
 

@@ -57,9 +57,9 @@
 
 ### 获取方式
 
-1. 登录 [微信公众平台](https://mp.weixin.qq.com/)
-2. 设置与开发 → 基本配置
-3. 获取 **开发者ID(AppID)** 和 **开发者密码(AppSecret)**
+1. 登录 [微信公众平台](https://developers.weixin.qq.com/console/index?tab1=business&tab2=dev)
+2. 我的业务与服务 → 公众号
+3. 开发密钥，获取 **开发者ID(AppID)** 和 **开发者密码(AppSecret)**
 
 ### 填入配置
 
@@ -95,7 +95,7 @@ bash scripts/wx-auth.sh
 
 - `invalid appid` — AppID 填错了，检查是否有多余空格
 - `invalid secret` — AppSecret 填错了
-- `ip not in whitelist` — 需要在公众号后台配置 IP 白名单（设置与开发 → 基本配置 → IP白名单）
+- `ip not in whitelist` — 需要在公众号后台配置 IP 白名单
 
 ### 没有 API 也能用
 
