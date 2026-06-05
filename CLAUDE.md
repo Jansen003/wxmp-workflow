@@ -30,12 +30,12 @@ This is **not** a traditional codebase with build/test commands. It's a skill de
 
 **templates/** contains 5 beautiful HTML templates with inline styles:
 - `minimal-white.html` — clean, lots of whitespace (tutorials, guides)
-- `magazine.html` — elegant, editorial style (deep articles, opinions)
-- `dark-mode.html` — dark background, tech feel (tech, programming)
+- `magazine.html` — elegant, editorial style with serif fonts (deep articles, opinions)
+- `dark-mode.html` — code-style fonts, gradient lines, tech feel (tech, programming)
 - `card-style.html` — modular cards, easy to scan (lists, roundups)
-- `gradient.html` — colorful gradients, youthful (lifestyle, stories)
+- `gradient.html` — gradient line decorations, youthful (lifestyle, stories)
 
-**templates/article.html** is the WeChat-compatible HTML template with inline styles (WeChat strips external CSS/JS).
+Templates are designed for WeChat dark/light mode compatibility: no background colors, neutral text colors (#333/#666/#999), no author/date duplication.
 
 ## Key Constraints
 

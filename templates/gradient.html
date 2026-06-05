@@ -1,28 +1,28 @@
 <!--
   模板：渐变色
-  特点：彩色渐变背景、年轻活力、适合生活方式/情感类文章
+  特点：渐变线条装饰、年轻活力、适合生活方式/情感类文章
   关键词：活力、年轻、时尚
+  适配：微信亮色/暗色主题均可正常显示（无背景色，通过渐变线条体现风格）
 -->
-<section style="margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #333; font-size: 16px; line-height: 1.9; word-wrap: break-word; background: #ffffff;">
+<section style="margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #333; font-size: 16px; line-height: 1.9; word-wrap: break-word;">
 
   <!-- 标题区 -->
-  <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 45px 24px 35px; text-align: center; border-radius: 0 0 30px 30px;">
-    <h1 style="font-size: 24px; font-weight: 700; color: #ffffff; margin: 0 0 14px; line-height: 1.5; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+  <section style="text-align: center; padding: 30px 20px 25px; margin-bottom: 30px;">
+    <section style="width: 60px; height: 3px; background: linear-gradient(90deg, #667eea, #764ba2); margin: 0 auto 20px; border-radius: 2px;"></section>
+    <h1 style="font-size: 22px; font-weight: 700; color: #1a1a1a; margin: 0 0 15px; line-height: 1.5;">
       {{TITLE}}
     </h1>
-    <p style="font-size: 13px; color: rgba(255,255,255,0.8); margin: 0; letter-spacing: 1px;">
-      {{AUTHOR}} · {{DATE}}
-    </p>
+    <section style="width: 60px; height: 3px; background: linear-gradient(90deg, #764ba2, #667eea); margin: 0 auto; border-radius: 2px;"></section>
   </section>
 
   <!-- 正文区 -->
-  <section style="padding: 30px 24px;">
+  <section style="padding: 0 16px;">
     {{CONTENT}}
   </section>
 
   <!-- 结尾区 -->
-  <section style="margin-top: 40px; padding: 30px 24px; text-align: center; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 30px 30px 0 0;">
-    <p style="font-size: 13px; color: #999; margin: 0 0 12px; letter-spacing: 2px;">
+  <section style="margin-top: 40px; padding: 25px 16px; text-align: center; border-top: 1px solid #e0e0e0;">
+    <p style="font-size: 13px; color: #bbb; margin: 0 0 12px; letter-spacing: 2px;">
       ✨ END ✨
     </p>
     <p style="font-size: 14px; color: #666; margin: 0;">
