@@ -1,0 +1,7 @@
+{
+  "appid": "YOUR_APPID_HERE",
+  "secret": "YOUR_SECRET_HERE",
+  "author": "你的公众号名称",
+  "default_comment": 1,
+  "default_fans_only_comment": 0
+}
