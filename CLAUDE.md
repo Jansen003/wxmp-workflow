@@ -59,7 +59,7 @@ cp config/wxmp.example.json config/wxmp.json  # then fill in AppID + Secret + Ag
 
 Config file lookup order (first match wins):
 1. `{current_project}/config/wxmp.json` — user's project directory
-2. `~/.claude/skills/wxmp-workflow/config/wxmp.json` — skill installation directory
+2. `{skill_dir}/config/wxmp.json` — skill installation directory (auto-detected via script location)
 
 The config file contains secrets and is gitignored. Required fields:
 - `appid` / `secret` — WeChat Official Account API credentials

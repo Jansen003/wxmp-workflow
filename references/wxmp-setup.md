@@ -11,7 +11,7 @@
 读取 `config/wxmp.json`，检查各项配置状态。配置文件支持两个位置，按优先级查找：
 
 1. **当前项目目录**：`{项目}/config/wxmp.json`（用户自己的项目）
-2. **Skill 目录**：`~/.claude/skills/wxmp-workflow/config/wxmp.json`（skill 安装位置）
+2. **Skill 安装目录**：skill 安装位置下的 `config/wxmp.json`（所有项目共享）
 
 配置状态检查：
 
@@ -67,12 +67,12 @@
 
 **方式 A：放在项目目录**（推荐，方便管理）
 ```bash
-cp ~/.claude/skills/wxmp-workflow/config/wxmp.example.json config/wxmp.json
+cp config/wxmp.example.json config/wxmp.json
 ```
 
-**方式 B：放在 skill 目录**（所有项目共享）
+**方式 B：放在 skill 安装目录**（所有项目共享）
 ```bash
-cp ~/.claude/skills/wxmp-workflow/config/wxmp.example.json ~/.claude/skills/wxmp-workflow/config/wxmp.json
+cp config/wxmp.example.json {skill安装目录}/config/wxmp.json
 ```
 
 编辑 `config/wxmp.json`：
