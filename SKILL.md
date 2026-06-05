@@ -28,7 +28,7 @@ allowed-tools:
 
 # 微信公众号工作流
 
-一站式完成公众号内容创作：**选题 → 调研 → 大纲 → 写稿 → 打磨 → 配图 → 排版 → 发布 → 复盘**。
+一站式完成公众号内容创作：**选题 → 调研 → 大纲 → 写稿 → 打磨 → 配图 → 排版 → 发布 → 复盘 → 多平台同步**。
 
 ## 核心约束
 
@@ -59,6 +59,7 @@ allowed-tools:
 | "帮我写个摘要" | 调用摘要生成器 |
 | "帮我看看文章怎么样" / "有没有改进空间" | 调用文章体检报告 |
 | "帮我加几个标签" | 调用话题标签推荐 |
+| "同步到其他平台" / "发到知乎" / "发到掘金" | 执行多平台同步（见第 10 步） |
 
 如果不确定用户意图，直接问。
 
@@ -198,6 +199,25 @@ bash scripts/wx-article-stats.sh --recent 7
 **全自动：** 自动查询数据，生成复盘报告
 
 > 详细指引见 `references/wxmp-publishing.md` 的复盘章节
+
+### 10. 多平台同步（可选）
+
+公众号发布并确认效果后，可将文章同步到其他内容平台（知乎、掘金、CSDN 等）的草稿箱。
+
+**前置条件：**
+- `npm install -g @wechatsync/cli`
+- Chrome 安装 [Wechatsync 扩展](https://chrome.google.com/webstore/detail/hchobocdmclopcbnibdnoafilagadion)
+- 在浏览器里登录各平台账号
+
+**首次同步：** 询问用户要同步到哪些平台，写入 `config/wxmp.json` 的 `wechatsync_platforms` 字段
+**后续同步：** 读取配置，直接同步
+**添加平台：** 用户说"加一个 XXX 平台"，更新配置文件即可
+
+```bash
+wechatsync sync output/xxx.html -p zhihu,juejin,csdn
+```
+
+文章进入各平台草稿箱，用户自行预览和发布。详细指引见 `references/wxmp-sync.md`
 
 ## 增强工具
 

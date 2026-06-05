@@ -10,6 +10,7 @@
 - **打磨优化** — 去 AI 味检查、文章体检报告、爆款标题生成、摘要生成
 - **排版发布** — 转公众号 HTML、API 发布、数据统计
 - **发布复盘** — 阅读量/分享率分析、经验总结
+- **多平台同步** — 通过 Wechatsync 同步到知乎、掘金、CSDN 等 29+ 平台草稿箱
 
 支持**全自动**（无人值守）和**半自动**（交互式确认）两种模式。
 
@@ -57,7 +58,8 @@ wxmp-workflow/
 │   ├── wxmp-research.md        # 调研流程
 │   ├── wxmp-writing.md         # 撰写 + 打磨 + 配图 + 排版
 │   ├── wxmp-tools.md           # 增强工具（标题/摘要/体检/标签）
-│   └── wxmp-publishing.md      # 发布 + 预览 + 复盘
+│   ├── wxmp-publishing.md      # 发布 + 预览 + 复盘
+│   └── wxmp-sync.md            # 多平台同步（Wechatsync）
 ├── scripts/                    # API 脚本
 │   ├── wx-auth.sh              # 获取/缓存 access_token
 │   ├── wx-upload-image.sh      # 上传封面图素材
@@ -101,6 +103,10 @@ bash scripts/wx-article-stats.sh --recent 7          # 单篇文章详细数据
 
 # AI 图片生成（需要配置 Agnes API Key）
 bash scripts/wx-generate-image.sh --prompt "图片描述" --size 1024x768
+
+# 多平台同步（需要安装 Wechatsync CLI + Chrome 扩展）
+wechatsync sync output/xxx.html -p zhihu,juejin,csdn    # 同步到各平台草稿箱
+wechatsync platforms --auth                               # 检查平台登录状态
 ```
 
 ## 注意事项

@@ -28,6 +28,7 @@ This is **not** a traditional codebase with build/test commands. It's a skill de
 - `wx-articles.sh` — list published articles
 - `wx-article-stats.sh` — per-article detailed stats (7-day max range)
 - `wx-generate-image.sh` — Agnes AI image generation (文生图)
+- Multi-platform sync uses Wechatsync CLI (`wechatsync sync`) — requires Chrome extension + browser login sessions
 
 **templates/** contains 5 beautiful HTML templates with inline styles:
 - `minimal-white.html` — clean, lots of whitespace (tutorials, guides)
@@ -48,6 +49,7 @@ Templates are designed for WeChat dark/light mode compatibility: no background c
 - Daily publish limits: subscription accounts (订阅号) 1/day, service accounts (服务号) 4/day
 - Stats APIs have time span limits: `getarticlesummary` max 1 day, `getarticletotal` max 7 days
 - Stats data has ~1 day delay (can't query today's data until tomorrow)
+- Multi-platform sync requires Wechatsync CLI + Chrome extension + user logged into target platforms in browser; sync creates drafts only, user publishes manually
 
 ## Configuration
 

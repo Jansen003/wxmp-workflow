@@ -4,5 +4,6 @@
   "author": "你的公众号名称",
   "default_comment": 1,
   "default_fans_only_comment": 0,
-  "agnes_api_key": "YOUR_AGNES_API_KEY_HERE"
+  "agnes_api_key": "YOUR_AGNES_API_KEY_HERE",
+  "wechatsync_platforms": []
 }
