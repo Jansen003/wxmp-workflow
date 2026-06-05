@@ -30,6 +30,10 @@ allowed-tools:
 
 一站式完成公众号内容创作：**选题 → 调研 → 大纲 → 写稿 → 打磨 → 配图 → 排版 → 发布 → 复盘**。
 
+## 核心约束
+
+**一个对话只做一篇文章。** 第一次创建草稿时记住 `media_id`，后续所有操作（修改、发布）都复用它。如果用户想写新文章，提示"请开一个新对话"。
+
 ## 运行模式
 
 | 模式 | 触发方式 | 行为 |
@@ -157,11 +161,20 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 ```bash
 bash scripts/wx-auth.sh                                    # 获取 token
 bash scripts/wx-upload-image.sh /path/to/cover.jpg         # 上传封面图
-bash scripts/wx-draft.sh --title "标题" --content output/xxx.html --thumb MEDIA_ID  # 创建草稿
-bash scripts/wx-publish.sh --media-id DRAFT_MEDIA_ID       # 发布
-bash scripts/wx-stats.sh --date 2026-06-05                 # 查当天数据
-bash scripts/wx-articles.sh                                # 查已发布文章列表
-bash scripts/wx-article-stats.sh --recent 7                # 查单篇文章详细数据
+
+# 第一次创建草稿（记住返回的 media_id）
+bash scripts/wx-draft.sh --title "标题" --content output/xxx.html --thumb MEDIA_ID
+
+# 后续修改同一篇文章（复用 media_id）
+bash scripts/wx-draft.sh --media-id DRAFT_MEDIA_ID --title "新标题" --content output/xxx.html --thumb MEDIA_ID
+
+# 发布
+bash scripts/wx-publish.sh --media-id DRAFT_MEDIA_ID
+
+# 查数据
+bash scripts/wx-stats.sh --date 2026-06-05
+bash scripts/wx-articles.sh
+bash scripts/wx-article-stats.sh --recent 7
 ```
 
 **半自动：** 发布前停下来等用户确认
