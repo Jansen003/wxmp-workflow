@@ -149,13 +149,17 @@ allowed-tools:
 
 **适合加图的位置：** 开头配图（吸引注意力）、数据图表（可视化数据）、步骤截图（教程类）、结尾引导图（引导关注/转发）
 
-**图片来源：** 用户自己提供 / 用 Agnes AI 生成
+**图片来源：** 用户自己提供 / AI 生成（Agnes 或 SenseNova）
 
 **图片内容限制：** 所有配图（含封面图）不能出现真人，动画/插画/卡通人物不受限。AI 生成时 prompt 加 `no real people`
 
-**用 Agnes AI 生成图片：**
+**AI 生成图片：** 优先 Agnes，Agnes 失败时切换 SenseNova：
 ```bash
+# Agnes（通用图片）
 bash scripts/wx-generate-image.sh --prompt "图片描述" --size 1024x768
+
+# SenseNova（信息图，Agnes 的备选方案）
+bash scripts/wx-generate-image-sensenova.sh --prompt "图片描述" --size 2752x1536
 ```
 
 **图片必须先上传到微信素材库才能在文章中使用：**

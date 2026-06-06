@@ -105,6 +105,7 @@
 - Humanizer："要安装 Humanizer 来消除 AI 写作痕迹吗？基于维基百科 AI 写作特征检测，支持声音校准。"
 - StopSlop："要安装 StopSlop 来提升文章质量吗？它是一套专业的写作打磨规则，配合 Humanizer 效果更好。"
 - Agnes AI："要配置 AI 图片生成吗？可以一句话生成配图。"
+- SenseNova："Agnes 不稳定的话，要同时配置 SenseNova 作为备选图片生成方案吗？擅长信息图。"
 - Wechatsync："要配置多平台同步吗？可以把文章一键同步到知乎、掘金等 24 平台。"
 - Reddit："要接入 Reddit 作为选题信源吗？信息差大、时效性强。需要在浏览器登录 Reddit。"
 
@@ -136,7 +137,7 @@
 | 发布到公众号 | 推荐 | 微信公众号 AppID + Secret |
 | 去 AI 痕迹 | 可选 | Humanizer skill |
 | 写作质量打磨 | 可选 | StopSlop skill |
-| AI 生成配图 | 可选 | Agnes AI API Key |
+| AI 生成配图 | 可选 | Agnes AI API Key 和/或 SenseNova API Key |
 | 同步到其他平台 | 可选 | Wechatsync CLI + Chrome 扩展 |
 | Reddit 选题信源 | 可选 | rdt-cli + Chrome 登录 Reddit |
 
@@ -256,7 +257,39 @@ bash scripts/wx-generate-image.sh --prompt "一只猫" --size 512x512
 
 不配置时，配图环节需要用户自己提供图片，或手动在文章中标注图片位置后续补充。
 
-## 5. Wechatsync（多平台同步）
+## 5. SenseNova（图片生成备选方案）
+
+用于：信息图 (Infographics) 生成，基于 SenseNova U1 Fast 模型。Agnes 不稳定时的备选方案。
+
+### 获取方式
+
+1. 访问 [SenseNova](https://sensenova.cn/)
+2. 注册账号，获取 API Key
+
+### 填入配置
+
+编辑 `config/wxmp.json`，添加 `sensenova_api_key`：
+```json
+{
+  "appid": "...",
+  "secret": "...",
+  "sensenova_api_key": "你的SenseNova API Key"
+}
+```
+
+### 验证
+
+```bash
+bash scripts/wx-generate-image-sensenova.sh --prompt "一张简单的测试图"
+```
+
+输出图片路径即配置正确。
+
+### 与 Agnes 的关系
+
+两者都是可选的图片生成方案，配置任一即可。优先使用 Agnes，Agnes 失败时自动切换到 SenseNova。两者都未配置时，配图需要用户手动提供。
+
+## 6. Wechatsync（多平台同步）
 
 用于：把公众号文章同步到知乎、掘金、CSDN 等 24 平台的草稿箱。
 
@@ -310,7 +343,7 @@ wechatsync platforms --auth
 
 不配置时，文章只发布到公众号。想发到其他平台需要手动复制粘贴。
 
-## 6. Reddit 信源（选题扩展）
+## 7. Reddit 信源（选题扩展）
 
 用于：从 Reddit 获取原始话题线索，信息差大、时效性强。
 

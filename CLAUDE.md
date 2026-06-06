@@ -29,6 +29,7 @@ This is **not** a traditional codebase with build/test commands. It's a skill de
 - `wx-articles.sh` — list published articles
 - `wx-article-stats.sh` — per-article detailed stats (7-day max range)
 - `wx-generate-image.sh` — Agnes AI image generation (文生图)
+- `wx-generate-image-sensenova.sh` — SenseNova U1 Fast image generation (信息图, Agnes fallback)
 - Multi-platform sync uses Wechatsync CLI (`wechatsync sync`) — requires Chrome extension + browser login sessions
 
 **templates/** contains 5 beautiful HTML templates with inline styles:
