@@ -98,6 +98,7 @@ if [ -n "$DRAFT_MEDIA_ID" ]; then
     --arg media_id "$DRAFT_MEDIA_ID" \
     --arg title "$TITLE" \
     --arg author "$AUTHOR" \
+    --arg digest "$DIGEST" \
     --arg content "$CONTENT" \
     --arg thumb "$THUMB_MEDIA_ID" \
     --argjson comment "$COMMENT" \
@@ -105,7 +106,7 @@ if [ -n "$DRAFT_MEDIA_ID" ]; then
     '{
       media_id: $media_id,
       index: 0,
-      articles: (
+      articles: [
         {
           title: $title,
           author: $author,
@@ -115,7 +116,7 @@ if [ -n "$DRAFT_MEDIA_ID" ]; then
           only_fans_can_comment: $fans_only
         }
         + (if $digest != "" then {digest: $digest} else {} end)
-      )
+      ]
     }')
 
   RESPONSE=$(curl -sf \

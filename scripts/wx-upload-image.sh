@@ -22,7 +22,7 @@ if [ ! -f "$IMAGE_PATH" ]; then
 fi
 
 # 检查文件大小（微信限制 10MB）
-FILE_SIZE=$(stat -f%z "$IMAGE_PATH" 2>/dev/null || stat --printf="%s" "$IMAGE_PATH" 2>/dev/null)
+FILE_SIZE=$(wc -c < "$IMAGE_PATH" | tr -d ' ')
 if [ "$FILE_SIZE" -gt 10485760 ]; then
   echo "❌ 图片文件超过 10MB 限制: ${FILE_SIZE} bytes" >&2
   exit 1

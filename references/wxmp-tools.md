@@ -129,6 +129,8 @@
 
 AI 生成的文章有明显的"AI 味"——太完美、太中立、太工整、太空泛。去 AI 味是每篇文章打磨的必经步骤，目标是让文章读起来像一个有态度的人在聊天，而不是 AI 在交作业。
 
+> 💡 如果已安装 [Humanizer](https://github.com/blader/humanizer) 和 [StopSlop](https://github.com/hardikpandya/stop-slop)，优先使用它们（Humanizer 去 AI 痕迹 → StopSlop 打磨质量）。以下为内置的兜底规则。
+
 ### 何时使用
 
 - 文章写完后、体检报告之前

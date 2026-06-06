@@ -1,6 +1,9 @@
 # 配置文件（包含敏感信息）
 config/wxmp.json
 
+# 信源连通性缓存（每个人网络环境不同）
+config/connectivity.json
+
 # 输出目录中的文章（按需保留）
 output/*.html
 

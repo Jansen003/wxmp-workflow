@@ -32,7 +32,9 @@ done
 # 计算日期范围
 if [ -n "$RECENT" ]; then
   END_DATE=$(date +%Y-%m-%d)
-  BEGIN_DATE=$(date -v-"${RECENT}"d +%Y-%m-%d 2>/dev/null || date -d "-${RECENT} days" +%Y-%m-%d 2>/dev/null)
+  # macOS: date -v; Linux: date -d
+  # --recent 7 表示最近 7 天：今天到 6 天前（与 wx-stats.sh 语义一致）
+  BEGIN_DATE=$(date -v-"$((RECENT - 1))"d +%Y-%m-%d 2>/dev/null || date -d "-$((RECENT - 1)) days" +%Y-%m-%d 2>/dev/null)
 elif [ -n "$TARGET_DATE" ]; then
   BEGIN_DATE="$TARGET_DATE"
   END_DATE="$TARGET_DATE"

@@ -21,9 +21,15 @@
 | 功能 | 状态 | 说明 |
 |------|------|------|
 | 公众号 API | ✅ 已配置 / ❌ 未配置 | AppID + Secret，发布必需 |
+| Humanizer | ✅ 已安装 / ❌ 未安装 | 去 AI 痕迹，可选 |
+| StopSlop | ✅ 已安装 / ❌ 未安装 | 写作质量打磨，可选 |
 | Agnes AI | ✅ 已配置 / ❌ 未配置 | 图片生成，可选 |
 | Wechatsync | ✅ 已配置 / ❌ 未配置 | 多平台同步，可选 |
+| Reddit 信源 | ✅ 已配置 / ❌ 未配置 | 选题扩展，可选 |
 ```
+
+检测 Humanizer/StopSlop 安装状态：检查 skill 安装目录下是否存在 `humanizer` / `stop-slop` 文件夹。
+检测 Reddit 配置状态：执行 `which rdt` 检查 rdt-cli 是否安装，再检查 `topic_sources` 中是否包含 Reddit。
 
 ### 第 2 步：选择配置保存位置
 
@@ -40,31 +46,89 @@
 
 如果配置文件已存在，跳过此步，直接在已有文件上修改。
 
-### 第 3 步：处理必需配置
+### 第 3 步：处理基础配置
 
 如果公众号 API 未配置，优先引导配置（发布功能依赖它）。
 
-### 第 4 步：询问可选配置
+同时确认以下基础字段（未配置时询问）：
+- `author`："文章作者名是什么？创建草稿时会自动填入。"
+- `default_comment`："默认开启评论吗？（1=开，0=关）"
+- `default_fans_only_comment`："默认仅粉丝可评论吗？（1=是，0=否）"
+
+### 第 4 步：询问代理地址
+
+选题功能会扫描国际信源，有代理可以作为备选访问方式。AI 会自动探测每个信源的最佳访问方式并缓存，代理只是备选方案之一。
+
+```
+你有科学上网的代理吗？如果有，请告诉我代理地址（如 127.0.0.1:7890）。
+- 有代理 → 作为备选访问方式，直接访问失败时自动走代理
+- 没有代理 → 直接访问失败时通过搜索引擎间接获取
+```
+
+用户提供地址（如 `127.0.0.1:7890`）→ 写入：
+```json
+"proxy": {
+  "http": "http://127.0.0.1:7890",
+  "https": "http://127.0.0.1:7890"
+}
+```
+
+用户说没有 → 写入：
+```json
+"proxy": {
+  "http": "",
+  "https": ""
+}
+```
+
+### 第 5 步：询问选题信源偏好
+
+选题功能默认配置了科技和金融两个领域的信源。询问用户是否要调整：
+
+```
+选题默认信源已配置：
+- 科技：GitHub Trending、Hacker News、Product Hunt
+- 金融：TradingView、CNBC、Financial Times
+
+要调整吗？比如添加你关注的领域或信源。
+- 不用改 → 保持默认
+- 要改 → 让用户描述关注的领域，更新 topic_sources
+```
+
+用户说不用改 → 跳过
+用户要改 → 根据用户描述更新 `topic_sources` 的 `tech`/`finance`/`custom` 字段
+
+### 第 6 步：询问可选配置
 
 逐个询问未配置的可选功能：
 
+- Humanizer："要安装 Humanizer 来消除 AI 写作痕迹吗？基于维基百科 AI 写作特征检测，支持声音校准。"
+- StopSlop："要安装 StopSlop 来提升文章质量吗？它是一套专业的写作打磨规则，配合 Humanizer 效果更好。"
 - Agnes AI："要配置 AI 图片生成吗？可以一句话生成配图。"
-- Wechatsync："要配置多平台同步吗？可以把文章一键同步到知乎、掘金等 29+ 平台。"
+- Wechatsync："要配置多平台同步吗？可以把文章一键同步到知乎、掘金等 24 平台。"
+- Reddit："要接入 Reddit 作为选题信源吗？信息差大、时效性强。需要在浏览器登录 Reddit。"
 
-用户说"要"→ 引导配置；说"不要"→ 跳过，不打扰。
+用户说"要"→ 引导配置；说"不要"→ 跳过，不打扰；说"已经装过了"→ 跳过安装，验证可用即可。
 
-### 第 5 步：确认
+### 第 7 步：确认
 
 配置完成后，再次运行检查，展示最终状态。
 
 ## 配置总览
 
+> 💡 以下功能章节按配置依赖排序，与上方执行流程的步骤编号不对应。
+
 | 功能 | 是否必须 | 需要什么 |
 |------|---------|---------|
 | 写文章、打磨、排版 | ✅ 必须 | 无，开箱即用 |
 | 发布到公众号 | 推荐 | 微信公众号 AppID + Secret |
+| 去 AI 痕迹 | 可选 | Humanizer skill |
+| 写作质量打磨 | 可选 | StopSlop skill |
 | AI 生成配图 | 可选 | Agnes AI API Key |
 | 同步到其他平台 | 可选 | Wechatsync CLI + Chrome 扩展 |
+| Reddit 选题信源 | 可选 | rdt-cli + Chrome 登录 Reddit |
+
+> 💡 选题时的信源连通性由 AI 自动探测并缓存到 `config/connectivity.json`，无需手动配置。
 
 ## 1. 微信公众号 API
 
@@ -106,7 +170,43 @@ bash scripts/wx-auth.sh
 
 不配置 API 时，写文章、打磨、排版都正常工作。只有发布环节需要手动操作：去公众号后台粘贴 HTML 内容。
 
-## 2. Agnes AI（图片生成）
+## 2. Humanizer（去 AI 痕迹）
+
+用于：消除 AI 写作的 30 种已知模式（基于维基百科 AI 写作特征检测）。支持声音校准，能匹配用户的个人写作风格。不安装时使用内置的简化版去 AI 味规则。
+
+### 安装方式
+
+```bash
+npx skills add blader/humanizer
+```
+
+### 验证
+
+安装后检查 skill 目录下存在 `humanizer` 文件夹即可。
+
+### 没有 Humanizer 也能用
+
+不安装时，打磨阶段使用内置的 4 轮去 AI 味检查（特征词 → 结构 → 风格 → 人味）。效果够用，Humanizer 是锦上添花。
+
+## 3. StopSlop（写作质量打磨）
+
+用于：用 8 条写作原则 + 12 项快速检查打磨文章质量，配合 Humanizer 效果更好。不安装时使用内置规则。
+
+### 安装方式
+
+```bash
+npx skills add hardikpandya/stop-slop
+```
+
+### 验证
+
+安装后检查 skill 目录下存在 `stop-slop` 文件夹即可。
+
+### 没有 StopSlop 也能用
+
+不安装时，打磨阶段使用内置的文章体检报告（5 维度评分）。效果够用，StopSlop 是锦上添花。
+
+## 4. Agnes AI（图片生成）
 
 用于：根据文字描述自动生成配图。
 
@@ -138,9 +238,9 @@ bash scripts/wx-generate-image.sh --prompt "一只猫" --size 512x512
 
 不配置时，配图环节需要用户自己提供图片，或手动在文章中标注图片位置后续补充。
 
-## 3. Wechatsync（多平台同步）
+## 5. Wechatsync（多平台同步）
 
-用于：把公众号文章同步到知乎、掘金、CSDN 等 29+ 平台的草稿箱。
+用于：把公众号文章同步到知乎、掘金、CSDN 等 24 平台的草稿箱。
 
 ### 获取方式
 
@@ -192,19 +292,66 @@ wechatsync platforms --auth
 
 不配置时，文章只发布到公众号。想发到其他平台需要手动复制粘贴。
 
+## 6. Reddit 信源（选题扩展）
+
+用于：从 Reddit 获取原始话题线索，信息差大、时效性强。
+
+### 配置流程
+
+AI 负责安装和配置，用户只需要在浏览器里登录 Reddit。
+
+**第一步：AI 安装 rdt-cli**
+
+安装包名为 `rdt-cli`，安装后的可执行命令为 `rdt`。
+
+```bash
+# 优先用 uv，没有 uv 则用 pipx
+uv tool install rdt-cli || pipx install rdt-cli
+```
+
+**第二步：用户登录 Reddit（需用户操作）**
+
+请用户在 Chrome 浏览器里登录 Reddit（https://www.reddit.com）。登录完成后告知 AI。
+
+**第三步：AI 执行登录验证**
+
+```bash
+rdt login
+```
+
+会自动读取 Chrome 的 Reddit 登录状态。输出成功即可。
+
+### 验证
+
+```bash
+rdt r/technology --limit 1
+```
+
+能输出一条帖子内容即配置正确。
+
+**第四步：AI 写入配置**
+
+将 Reddit 添加到 `config/wxmp.json` 的 `topic_sources` 中：
+
+```json
+{
+  "topic_sources": {
+    "tech": ["GitHub Trending", "Hacker News", "Product Hunt"],
+    "finance": ["TradingView", "CNBC", "Financial Times"],
+    "custom": ["Reddit r/technology", "Reddit r/worldnews"]
+  }
+}
+```
+
+默认添加 `r/technology` 和 `r/worldnews`，用户可以要求调整 subreddit。
+
+### 没有 Reddit 也能用
+
+不配置时，选题只用默认信源（GitHub Trending、Hacker News 等）。Reddit 是补充，不影响核心功能。
+
 ## 快速检查清单
 
-告诉 AI "帮我检查配置" 时，按此清单逐项检查：
-
-```
-📋 配置检查
-
-| 功能 | 状态 | 说明 |
-|------|------|------|
-| 公众号 API | ✅/❌ | 有 AppID + Secret 才能自动发布 |
-| Agnes AI | ✅/❌ | 有 API Key 才能 AI 生图 |
-| Wechatsync | ✅/❌ | 有 CLI + 扩展才能同步多平台 |
-```
+告诉 AI "帮我检查配置" 时，按第 1 步的配置状态检查表逐项检查。
 
 ## 配置文件模板
 
@@ -218,7 +365,16 @@ wechatsync platforms --auth
   "default_comment": 1,
   "default_fans_only_comment": 0,
   "agnes_api_key": "your_agnes_api_key_here",
-  "wechatsync_platforms": ["zhihu", "juejin", "csdn"]
+  "wechatsync_platforms": ["zhihu", "juejin", "csdn"],
+  "proxy": {
+    "http": "",
+    "https": ""
+  },
+  "topic_sources": {
+    "tech": ["GitHub Trending", "Hacker News", "Product Hunt"],
+    "finance": ["TradingView", "CNBC", "Financial Times"],
+    "custom": []
+  }
 }
 ```
 
@@ -229,5 +385,7 @@ wechatsync platforms --auth
 | `author` | 文章作者名，创建草稿时自动填入 | 空 |
 | `default_comment` | 是否开启评论（1=开，0=关） | 1 |
 | `default_fans_only_comment` | 是否仅粉丝可评论（1=是，0=否） | 0 |
+| `proxy` | 代理配置，含 `http` 和 `https` 两个字段，空则不走代理 | `{"http":"","https":""}` |
 | `agnes_api_key` | Agnes AI 图片生成 API Key | 可选 |
 | `wechatsync_platforms` | 多平台同步目标列表 | 可选 |
+| `topic_sources` | 选题信源，对象结构：`tech`（科技）、`finance`（财经）、`custom`（自定义），每个字段是字符串数组。`custom` 用于 Reddit 等扩展信源 | 见示例 |

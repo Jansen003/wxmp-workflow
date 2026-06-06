@@ -71,6 +71,19 @@ bash scripts/wx-draft.sh \
 - `--author`：作者名（可选，默认读取配置文件）
 - `--digest`：摘要，120字以内（可选）
 - `--comment`：是否开启评论 0|1（可选，默认1）
+- `--fans-only`：仅粉丝可评论 0|1（可选，默认0）
+
+首次调用返回 `media_id`，后续操作（更新、预览、发布）都复用这个 `media_id`。
+
+**草稿更新：** 如果打磨/配图阶段修改了 HTML 或标题，发布前必须用 `--media-id` 更新草稿：
+
+```bash
+bash scripts/wx-draft.sh \
+  --media-id DRAFT_MEDIA_ID \
+  --title "最终标题" \
+  --content output/2026-06-05-article.html \
+  --thumb MEDIA_ID
+```
 
 **可能的错误：**
 - `thumb_media_id is invalid` — 封面图上传失败或 media_id 过期，重新上传
@@ -81,7 +94,12 @@ bash scripts/wx-draft.sh \
 
 发布前先在手机上看效果。这一步在全自动模式下跳过。
 
-**有 API 时：** 调用微信预览接口，发到用户微信
+**有 API 时：** 调用微信预览接口，发到用户微信：
+```bash
+bash scripts/wx-preview.sh --media-id DRAFT_MEDIA_ID --wx-name 微信号
+```
+需要公众号有消息推送权限。个人订阅号可能无此权限，报 `48001` 时走手动预览。
+
 **没 API 时：** 引导用户在公众号后台手动预览
 
 预览时重点检查：
@@ -96,6 +114,8 @@ bash scripts/wx-draft.sh \
 **全自动：** 跳过预览，直接发布
 
 ### 5. 发布文章
+
+发布前确认草稿内容是最新的——如果打磨/配图阶段修改过 HTML，先用 `--media-id` 更新草稿（见步骤 3）。
 
 ```bash
 bash scripts/wx-publish.sh --media-id DRAFT_MEDIA_ID
@@ -149,7 +169,7 @@ bash scripts/wx-publish.sh --media-id DRAFT_MEDIA_ID
 ```bash
 # 查看已发布文章列表
 bash scripts/wx-articles.sh                          # 获取最近20篇
-bash scripts/wx-articles.sh --count 50               # 获取50篇
+bash scripts/wx-articles.sh --count 20 --offset 20   # 获取第21-40篇（用 --offset 翻页）
 
 # 查看单篇文章详细数据
 bash scripts/wx-article-stats.sh --date 2026-06-05   # 指定某天
@@ -160,7 +180,7 @@ bash scripts/wx-stats.sh --date 2026-06-05           # 指定某天
 bash scripts/wx-stats.sh --recent 7                  # 最近7天
 ```
 
-统计数据有约 1 天延迟，且最多查询 7 天范围。
+统计数据有约 1 天延迟，且最多查询 7 天范围。API 每次最多返回 1 天数据，脚本自动循环拼接多天数据。
 
 ### 复盘输出格式
 

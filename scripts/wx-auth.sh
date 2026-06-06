@@ -69,5 +69,6 @@ fi
 # 写入缓存
 NOW=$(date +%s)
 echo "$RESPONSE" | jq --arg ts "$NOW" '. + {cached_at: ($ts | tonumber)}' > "$TOKEN_CACHE"
+chmod 600 "$TOKEN_CACHE"
 
 echo "$TOKEN"

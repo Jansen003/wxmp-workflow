@@ -2,7 +2,8 @@
 # wx-articles.sh — 获取已发布文章列表
 # 用法:
 #   bash scripts/wx-articles.sh                   # 获取最近20篇
-#   bash scripts/wx-articles.sh --count 50        # 获取50篇
+#   bash scripts/wx-articles.sh --count 20        # 获取20篇（单次上限）
+#   bash scripts/wx-articles.sh --offset 20       # 跳过前20篇，获取下一批
 #   bash scripts/wx-articles.sh --content         # 包含文章内容
 #
 # 参数:

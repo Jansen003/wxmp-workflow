@@ -5,5 +5,14 @@
   "default_comment": 1,
   "default_fans_only_comment": 0,
   "agnes_api_key": "YOUR_AGNES_API_KEY_HERE",
-  "wechatsync_platforms": []
+  "wechatsync_platforms": [],
+  "proxy": {
+    "http": "",
+    "https": ""
+  },
+  "topic_sources": {
+    "tech": ["GitHub Trending", "Hacker News", "Product Hunt"],
+    "finance": ["TradingView", "CNBC", "Financial Times"],
+    "custom": ["Reddit r/technology", "Reddit r/worldnews"]
+  }
 }

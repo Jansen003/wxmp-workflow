@@ -33,6 +33,7 @@ done
 DATES=()
 if [ -n "$RECENT" ]; then
   for i in $(seq 0 $((RECENT - 1))); do
+    # macOS: date -v; Linux: date -d
     DATES+=("$(date -v-"${i}"d +%Y-%m-%d 2>/dev/null || date -d "-${i} days" +%Y-%m-%d 2>/dev/null)")
   done
 elif [ -n "$TARGET_DATE" ]; then

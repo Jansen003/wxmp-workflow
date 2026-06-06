@@ -45,7 +45,7 @@ export WECHATSYNC_TOKEN="你的token"
 
 技术社区：掘金(juejin)、CSDN(csdn)、SegmentFault(segmentfault)、开源中国(oschina)、博客园(cnblogs)、51CTO(51cto)
 自媒体：知乎(zhihu)、头条号(toutiao)、微博(weibo)、小红书(xiaohongshu)、抖音图文(douyin)
-通用：简书(jianshu)、B站专栏(bilibili)、百家号(baijiahao)、语雀(yuque)、豆瓣(douban)
+通用：简书(jianshu)、B站专栏(bilibili)、百家号(baijiahao)、语雀(yuque)、豆瓣(douban)、搜狐号(sohu)
 其他：雪球(xueqiu)、东方财富(eastmoney)、什么值得买(smzdm)、网易号(netease)
 建站：WordPress(wordpress)、Typecho(typecho)
 
@@ -109,7 +109,7 @@ wechatsync sync output/2026-06-05-article.html -p zhihu,juejin,csdn
 | 掘金 | juejin | 技术社区 |
 | CSDN | csdn | 技术社区 |
 | 简书 | jianshu | 通用 |
-| 头条号 | toutiao | 通用 |
+| 头条号 | toutiao | 主流自媒体 |
 | 抖音图文 | douyin | 主流自媒体 |
 | B站专栏 | bilibili | 通用 |
 | 百家号 | baijiahao | 通用 |
