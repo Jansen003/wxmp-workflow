@@ -110,6 +110,18 @@
 
 用户说"要"→ 引导配置；说"不要"→ 跳过，不打扰；说"已经装过了"→ 跳过安装，验证可用即可。
 
+**Skill 安装位置：** 用户说要安装 Humanizer 或 StopSlop 时，询问安装位置：
+```
+安装到哪里？
+1. 当前项目 — 只对当前项目生效
+2. 全局 — 所有项目共享
+```
+
+- 当前项目：`npx skills add <repo> -y`，直接装到项目 `.claude/skills/` 下，无需选择 Agent
+- 全局：`npx skills add <repo> -g -y`，装到 `~/.agent/` 下。用 `--all` 跳过 Agent 选择（装到所有 Agent），或用 `-a <agent>` 只装到当前 Agent。AI 需判断自己运行在哪个 Agent 工具中（如 Claude Code、Cursor 等），并确认该 Agent 在 `skills` 支持的列表中，再决定是否指定 `-a` 及用哪个 Agent 名称
+
+**网络提示：** `npx skills add` 需要从 GitHub 下载，国内可能访问不了。如果安装卡住或超时，提示用户配置代理后重试。
+
 ### 第 7 步：确认
 
 配置完成后，再次运行检查，展示最终状态。
@@ -177,8 +189,11 @@ bash scripts/wx-auth.sh
 ### 安装方式
 
 ```bash
-npx skills add blader/humanizer
+npx skills add blader/humanizer -y          # 当前项目
+npx skills add blader/humanizer -g -y       # 全局（需指定 Agent 或用 --all）
 ```
+
+> 具体命令由第 6 步用户选择的安装位置决定，不要直接复制上面的命令。
 
 ### 验证
 
@@ -195,8 +210,11 @@ npx skills add blader/humanizer
 ### 安装方式
 
 ```bash
-npx skills add hardikpandya/stop-slop
+npx skills add hardikpandya/stop-slop -y    # 当前项目
+npx skills add hardikpandya/stop-slop -g -y # 全局（需指定 Agent 或用 --all）
 ```
+
+> 具体命令由第 6 步用户选择的安装位置决定，不要直接复制上面的命令。
 
 ### 验证
 
