@@ -58,11 +58,11 @@
 按确认的大纲撰写 Markdown 全文。写作原则：
 
 - **标题**：15-30字，制造好奇或承诺价值，避免标题党
-- **开头**：前3行决定读者是否继续，直接切入痛点或制造悬念
+- **开头**：前3行决定读者是否继续。从 `references/wxmp-typography.md` 的开头策略库中选手法（数据冲击、痛点提问、场景代入等），确保连续几篇文章不重复同一种开头
 - **段落**：每段不超过4行（手机屏幕约显示3-4行），段间留白
 - **语言**：口语化、有温度，像在和朋友聊天，避免学术腔
 - **结构**：善用小标题（h2/h3）、列表、引用块，让读者能扫读
-- **结尾**：引导互动（"你觉得呢？评论区聊聊"、"觉得有用点个在看"）
+- **结尾**：用 `references/wxmp-typography.md` 的互动引导区样式，引导点赞/在看/评论，措辞可变化
 - **字数**：1500-3000字为宜，深度长文可到5000字
 - **图片**：直接展示图片，不加"图片来源""图：xxx"等底部说明文字
 
@@ -214,7 +214,9 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 
 ### 2. 将 Markdown 转为内联样式 HTML
 
-公众号不支持外部 CSS，所有样式必须写在 `style` 属性里：
+公众号不支持外部 CSS，所有样式必须写在 `style` 属性里。转换时遵循 `references/wxmp-typography.md` 的排版规范（字号、间距、配色、视觉节奏、组件库）。
+
+> 详细规范见 `references/wxmp-typography.md`。以下为常用标签速查。
 
 ```html
 <!-- 标题 -->
@@ -223,7 +225,7 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 </h2>
 
 <!-- 段落 -->
-<p style="font-size: 16px; color: #333; line-height: 1.8; margin: 0 0 20px; text-align: justify;">
+<p style="font-size: 15px; color: #333; line-height: 1.8; margin: 0 0 18px; text-align: justify;">
   正文内容...
 </p>
 
@@ -257,6 +259,8 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 ```
 
 **列表标签限制：** 不要使用 `<ul>/<ol>/<li>`，公众号编辑器会特殊处理这些标签，可能导致空 bullet、样式剥离等兼容性问题。用上述模拟列表组件代替。
+
+**视觉节奏：** 连续纯文字段落不超过 3 段，第 4 段之前必须插入一个视觉断点（引用块、金句高亮、卡片、图片、分割线）。详见 `references/wxmp-typography.md`。
 
 ### 3. 替换模板占位符
 
