@@ -39,7 +39,7 @@ This is **not** a traditional codebase with build/test commands. It's a skill de
 - `card-style.html` — modular cards, easy to scan (lists, roundups)
 - `gradient.html` — gradient line decorations, youthful (lifestyle, stories)
 
-Templates are designed for WeChat dark/light mode compatibility: no background colors, neutral text colors (#333/#666/#999), no author/date duplication.
+Templates are designed for WeChat dark/light mode compatibility: no background colors, neutral text colors (#3f3f3f/#666/#999), no author/date duplication.
 
 ## Key Constraints
 

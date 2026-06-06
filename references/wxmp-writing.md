@@ -246,42 +246,42 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 
 ```html
 <!-- 标题 -->
-<h2 style="font-size: 20px; font-weight: bold; color: #1a1a1a; margin: 30px 0 15px; padding-bottom: 10px; border-bottom: 2px solid #fa5151;">
+<section style="font-size: 1.2em; font-weight: bold; color: #3f3f3f; margin: 1.5em 0 0.75em; padding-bottom: 0.5em; border-bottom: 2px solid #fa5151;">
   小标题
-</h2>
+</section>
 
-<!-- 段落 -->
-<p style="font-size: 15px; color: #333; line-height: 1.8; margin: 0 0 18px; text-align: justify;">
+<!-- 段落（用 section 包裹，确保 margin/line-height 生效） -->
+<section style="font-size: 15px; color: #3f3f3f; line-height: 1.75; margin: 0 0 1.25em;">
   正文内容...
-</p>
+</section>
 
 <!-- 引用 -->
-<blockquote style="margin: 20px 0; padding: 15px 20px; background: #f7f7f7; border-left: 4px solid #fa5151; font-size: 15px; color: #666;">
+<section style="margin: 1.25em 0; padding: 0.75em 1em; background: #f7f7f7; border-left: 4px solid #fa5151; font-size: 15px; color: #666;">
   引用内容...
-</blockquote>
+</section>
 
-<!-- 悬挂缩进列表（普通短列表） -->
-<p style="font-size:15px; line-height:1.9; margin:0 0 12px; padding-left:1.2em; text-indent:-1.2em;">
+<!-- 列表（用 section 包裹） -->
+<section style="font-size:15px; margin:0 0 0.75em; padding-left:1.5em;">
   <span style="color:#fa5151; font-weight:bold;">•</span>
-  <strong style="color:#1a1a1a;">关键词</strong> — 具体说明内容
-</p>
-<p style="font-size:15px; line-height:1.9; margin:0 0 12px; padding-left:1.2em; text-indent:-1.2em;">
+  <strong style="color:#3f3f3f;">关键词</strong> — 具体说明内容
+</section>
+<section style="font-size:15px; margin:0 0 0.75em; padding-left:1.5em;">
   <span style="color:#fa5151; font-weight:bold;">•</span>
-  <strong style="color:#1a1a1a;">关键词</strong> — 具体说明内容
-</p>
+  <strong style="color:#3f3f3f;">关键词</strong> — 具体说明内容
+</section>
 
 <!-- 卡片式列表（重点功能清单、组件介绍） -->
-<section style="margin:0 0 12px; padding:12px 14px; border-left:3px solid #fa5151; background:#f7f7f7; border-radius:6px;">
-  <p style="font-size:15px; line-height:1.8; margin:0;">
+<section style="margin:0 0 0.75em; padding:0.75em 1em; border-left:3px solid #fa5151; background:#f7f7f7; border-radius:6px;">
+  <section style="font-size:15px; color:#3f3f3f;">
     <strong style="color:#fa5151;">关键词</strong> — 具体说明内容
-  </p>
+  </section>
 </section>
 
 <!-- 加粗 -->
 <strong style="color: #fa5151;">重点内容</strong>
 
 <!-- 图片（必须是微信 CDN 地址） -->
-<img src="微信CDN地址" style="width: 100%; border-radius: 8px; margin: 15px 0;" />
+<img src="微信CDN地址" style="width: 100%; border-radius: 8px;" />
 ```
 
 **列表标签限制：** 不要使用 `<ul>/<ol>/<li>`，公众号编辑器会特殊处理这些标签，可能导致空 bullet、样式剥离等兼容性问题。用上述模拟列表组件代替。

@@ -8,47 +8,102 @@
 2. **呼吸感** — 密集文字之间必须有留白，让眼睛休息
 3. **视觉节奏** — 连续纯文字不超过 3 段，中间插结构化元素打断
 4. **一致性** — 同一篇文章的字号、间距、配色保持统一
+5. **黑白之道** — 排版是「黑与白」的艺术：文字是黑，留白是白，黑白得当才有和谐美感
+
+## 字体
+
+```css
+font-family: -apple-system-font, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei UI, Microsoft YaHei, Arial, sans-serif;
+```
+
+此字体栈覆盖 iOS（PingFang SC）、macOS（Helvetica Neue）、Android（Hiragino Sans GB / Microsoft YaHei）三大平台。
+
+## 微信编辑器兼容性（重要）
+
+微信编辑器会过滤或覆盖部分 CSS 属性。以下规则决定了哪些样式能生效、哪些不能用。
+
+### ✅ 可靠生效的属性
+
+| 属性 | 适用标签 | 说明 |
+|------|---------|------|
+| `font-size` | 所有标签 | 最小约 14px，低于此值会被强制放大 |
+| `font-weight` | 所有标签 | `bold`/`normal` 可靠 |
+| `color` | 所有标签 | 可靠 |
+| `background` | `section`/`div` | 可靠，`<p>` 上可能被过滤 |
+| `border` | `section`/`div` | 可靠 |
+| `text-align` | 所有标签 | 可靠 |
+| `padding` | `section`/`div` | 可靠，`<p>` 上可能被过滤 |
+| `border-radius` | `section`/`div` | 可靠 |
+| `display: flex` | `section`/`div` | 部分支持 |
+| `width`/`max-width` | `section`/`div`/`img` | 可靠 |
+
+### ⚠️ 不可靠或会被覆盖的属性
+
+| 属性 | 问题 | 替代方案 |
+|------|------|---------|
+| `letter-spacing` | 经常被过滤或覆盖 | 无法替代，接受微信默认值 |
+| `line-height` | `<p>` 上几乎一定被覆盖 | 用 `<section>` 包裹，在 `<section>` 上设置 |
+| `margin` | `<p>` 的 margin 几乎一定被覆盖 | 用 `<section>` 包裹，在 `<section>` 上设置 |
+| `padding` | `<p>` 上可能被过滤 | 用 `<section>` 包裹 |
+| `text-indent` | 不稳定 | 不要用，用段间留白代替首行缩进 |
+| `text-size-adjust` | 微信 WebView 内不一定生效 | 保留但不依赖它 |
+| `font-style: italic` | 中文字体下可能不生效 | 不要用斜体中文 |
+
+### 核心结论
+
+**所有内容块必须用 `<section>` 而非 `<p>` 包裹**，这样 margin、line-height、padding、background、border 才能可靠生效。只有纯文本行才用 `<p>`（只设 font-size + color，不依赖 margin/line-height）。
 
 ## 字号体系
 
-| 元素 | 字号 | 行高 | 字重 | 颜色 |
-|------|------|------|------|------|
-| 大标题（h2 章节标题） | 20px | 1.4 | bold | #1a1a1a |
-| 小标题（h3 子标题） | 17px | 1.4 | bold | #1a1a1a |
-| 正文 | 15px | 1.8 | normal | #333 |
-| 引用块 | 14px | 1.8 | normal | #666 |
-| 注释/来源 | 13px | 1.6 | normal | #999 |
-| 金句高亮 | 18px | 1.6 | normal | #333 |
+基准字号 **15px**，标题用相对倍率（em）。注释不得低于 14px（微信最小值限制）。
 
-不要用 16px 以下的正文——手机上太小。不要用 22px 以上的标题——太突兀。
+| 元素 | 标签 | 字号 | 颜色 | 说明 |
+|------|------|------|------|------|
+| 大标题（h2 章节标题） | `<section>` | 1.2em（≈18px） | #3f3f3f | 粗体+底线区分 |
+| 小标题（h3 子标题） | `<section>` | 1.1em（≈16.5px） | #3f3f3f | 粗体 |
+| 正文 | `<section>` | 15px | #3f3f3f | 手机端阅读基准 |
+| 引用块 | `<section>` | 15px | #666 | 灰色，左边框装饰 |
+| 注释/来源 | `<section>` | 14px | #999 | 不低于 14px |
+| 金句高亮 | `<section>` | 17px | #3f3f3f | 居中大字，20字以内 |
+
+**行高控制：** 在 `<section>` 容器上设置 `line-height`（如 1.75），不要在 `<p>` 上设——会被覆盖。
 
 ## 间距体系
 
-| 位置 | 间距 |
-|------|------|
-| 段落之间 | `margin: 0 0 18px` |
-| 章节标题与正文 | `margin: 30px 0 15px` |
-| 章节之间（标题上方） | `margin: 35px 0 0` |
-| 引用块上下 | `margin: 20px 0` |
-| 图片上下 | `margin: 15px 0` |
-| 列表项之间 | `margin: 0 0 12px` |
-| 组件（卡片/信息框）上下 | `margin: 20px 0` |
+间距统一用 `<section>` 容器的 margin 控制，不用 `<p>` 的 margin。
 
-首行不缩进，用段间留白代替。
+| 位置 | 方式 | 说明 |
+|------|------|------|
+| 段落之间 | `<section style="margin: 0 0 1.25em">` | 每个段落是一个 section |
+| 章节标题与正文 | 标题 `<section>` 的 margin-bottom | 标题下方留白 |
+| 引用块上下 | `<section style="margin: 1.25em 0">` | 独立 section |
+| 图片上下 | `<section style="margin: 1em 0">` | 图片包裹在 section 中 |
+| 组件上下 | `<section style="margin: 1.25em 0">` | 卡片/信息框 |
+
+**首行不缩进**，用段间留白代替。
 
 ## 配色方案
 
+正文颜色不超过 3 种（不含图片）。
+
 | 用途 | 色值 | 说明 |
 |------|------|------|
-| 正文 | `#333` | 主要文字 |
+| 正文 | `#3f3f3f` | 主要文字，比纯黑柔和 |
 | 次要文字 | `#666` | 引用、补充说明 |
 | 注释 | `#999` | 来源、时间、作者信息 |
 | 强调/重点 | `#fa5151` | 加粗、标记、小圆点 |
 | 标题底线 | `#fa5151` | h2 下方的 2px 红线 |
-| 背景色 | `#f7f7f7` | 引用块、卡片、信息框背景 |
+| 背景色 | `#f7f7f7` | 引用块、卡片背景 |
 | 分割线 | `#eee` | 章节分隔 |
 
-一篇文章只用一个强调色（`#fa5151`），不要混用多种颜色。
+**强调方式优先级：** 加粗 > 改变颜色 > 改变字号。不要用下划线（过时）、不要用斜体（中文斜体在微信中可能不生效）。
+
+## 标点符号
+
+- 中文标点全部使用**全角符号**
+- 引号推荐**直角引号「」**，比弯引号更优雅，也避免全角半角混用
+- 省略号用「……」（shift+6），不要用六个句号或三个点
+- 破折号用「——」（shift+-），不要用连字符
 
 ## 视觉节奏
 
@@ -56,29 +111,34 @@
 
 连续纯文字段落不超过 3 段。第 4 段之前必须插入一个视觉元素：
 
-- 引用块（`<blockquote>`）
+- 引用块（`<section>` 带左边框）
 - 金句高亮（居中大字）
-- 卡片式组件（`<section>` 带左边框）
+- 卡片式组件（`<section>` 带左边框 + 背景色）
 - 图片
 - 分割线（`<hr>`）
-- 列表（悬挂缩进或卡片式）
+
+### 段落长度节奏
+
+长、中、短段落结合——像音乐的节奏变化：
+
+- **长段落**（4-5 行）：阐述核心观点
+- **中段落**（2-3 行）：展开论述
+- **短段落**（1 行）：强调、转折、过渡
+
+段落最长不超过一屏。
 
 ### 分割线
 
-章节之间用分割线分隔，不要只靠间距：
-
 ```html
-<hr style="border: none; border-top: 1px solid #eee; margin: 35px 0;" />
+<hr style="border: none; border-top: 1px solid #eee; margin: 1.5em 0;" />
 ```
 
 ### 金句高亮
 
-值得划线/转发的句子，用大号居中样式突出：
-
 ```html
-<p style="font-size: 18px; line-height: 1.6; color: #333; text-align: center; margin: 25px 15px; padding: 15px 0;">
-  金句内容，尽量控制在 20 字以内。
-</p>
+<section style="margin: 1.5em 0; padding: 1em; text-align: center;">
+  <span style="font-size: 17px; color: #3f3f3f;">金句内容，尽量控制在 20 字以内。</span>
+</section>
 ```
 
 一篇文章 1500 字至少有 2-3 个金句高亮。
@@ -94,7 +154,7 @@
 | 数据冲击 | 用一个反直觉的数据开头 | 深度长文、观点/评论 |
 | 痛点提问 | 问一个读者正在经历的问题 | 教程/干货、观点/评论 |
 | 场景代入 | 描述一个具体的生活场景 | 故事/案例、盘点/清单 |
-| 反常识 | 挑战一个普遍认知 | 角点/评论、深度长文 |
+| 反常识 | 挑战一个普遍认知 | 观点/评论、深度长文 |
 | 直接下判断 | 开门见山亮出观点 | 观点/评论、深度长文 |
 | 故事悬念 | 讲一个小故事，留个悬念 | 故事/案例、观点/评论 |
 | 热点切入 | 从当天热点事件引入 | 观点/评论、盘点/清单 |
@@ -104,83 +164,72 @@
 
 **选择原则：** 同一作者连续几篇文章不要用同一种开头。AI 根据文章内容和风格选最合适的，措辞每次都不同——这些是手法，不是填空模板。
 
+## 中西文混排
+
+- 中文与英文之间加空格：「我用 Typora 写作」
+- 中文与数字之间加空格：「现在已经到了 2 月份」
+- 中文夹杂英文时使用全角标点：「这是我新买的 iPhone，你拿去吧」
+- 完整英语句子用半角标点：「Each man is the architect of his own fate.」
+
 ## 组件库
+
+所有组件用 `<section>` 构建，确保 margin/padding/background/border 可靠生效。
 
 ### 信息提示框
 
-用于 tips、注意事项、补充说明。
-
 ```html
-<section style="margin: 20px 0; padding: 12px 15px; border-left: 3px solid #fa5151; background: #f7f7f7; border-radius: 0 6px 6px 0;">
-  <p style="font-size: 14px; line-height: 1.8; margin: 0; color: #666;">
+<section style="margin: 1.25em 0; padding: 0.75em 1em; border-left: 3px solid #fa5151; background: #f7f7f7; border-radius: 0 6px 6px 0;">
+  <section style="font-size: 14px; color: #666;">
     💡 提示内容写在这里。
-  </p>
+  </section>
 </section>
 ```
 
 ### 步骤卡
 
-用于教程/操作步骤。
-
 ```html
-<p style="font-size: 15px; line-height: 1.8; margin: 0 0 12px; padding-left: 1.5em; text-indent: -1.5em;">
-  <span style="display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: #fa5151; color: #fff; border-radius: 50%; font-size: 13px; font-weight: bold; margin-right: 8px;">1</span>
+<section style="margin: 0 0 0.75em; padding-left: 1.5em;">
+  <span style="display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: #fa5151; color: #fff; border-radius: 50%; font-size: 14px; font-weight: bold; margin-right: 8px;">1</span>
   <strong>第一步标题</strong> — 具体操作说明
-</p>
+</section>
 ```
-
-步骤超过 5 步时，拆成多组，每组之间加空行。
 
 ### 对比卡
 
-用于正确 vs 错误、优点 vs 缺点。
-
 ```html
-<section style="margin: 20px 0; padding: 12px 15px; border-left: 3px solid #07c160; background: #f0faf4; border-radius: 0 6px 6px 0;">
-  <p style="font-size: 14px; line-height: 1.8; margin: 0; color: #333;">
+<section style="margin: 1.25em 0; padding: 0.75em 1em; border-left: 3px solid #07c160; background: #f0faf4; border-radius: 0 6px 6px 0;">
+  <section style="font-size: 15px; color: #3f3f3f;">
     <strong style="color: #07c160;">✅ 正确：</strong>具体示例
-  </p>
+  </section>
 </section>
-<section style="margin: 5px 0 20px; padding: 12px 15px; border-left: 3px solid #fa5151; background: #fef0f0; border-radius: 0 6px 6px 0;">
-  <p style="font-size: 14px; line-height: 1.8; margin: 0; color: #333;">
+<section style="margin: 0.3em 0 1.25em; padding: 0.75em 1em; border-left: 3px solid #fa5151; background: #fef0f0; border-radius: 0 6px 6px 0;">
+  <section style="font-size: 15px; color: #3f3f3f;">
     <strong style="color: #fa5151;">❌ 错误：</strong>具体示例
-  </p>
+  </section>
 </section>
 ```
 
 ### 重点卡片
 
-用于核心观点、关键结论。
-
 ```html
-<section style="margin: 20px 0; padding: 14px 16px; border-left: 3px solid #fa5151; background: #f7f7f7; border-radius: 0 6px 6px 0;">
-  <p style="font-size: 15px; line-height: 1.8; margin: 0; color: #333;">
+<section style="margin: 1.25em 0; padding: 0.9em 1em; border-left: 3px solid #fa5151; background: #f7f7f7; border-radius: 0 6px 6px 0;">
+  <section style="font-size: 15px; color: #3f3f3f;">
     <strong style="color: #fa5151;">关键点</strong> — 核心内容描述
-  </p>
+  </section>
 </section>
 ```
 
 ### 互动引导区
 
-文章结尾的固定互动区域，引导读者行动。
-
 ```html
-<hr style="border: none; border-top: 1px solid #eee; margin: 35px 0 20px;" />
-<p style="font-size: 14px; line-height: 1.8; color: #999; text-align: center; margin: 0 0 8px;">
-  👆 觉得有用？点个<strong style="color: #fa5151;">「在看」</strong>让更多人看到
-</p>
-<p style="font-size: 14px; line-height: 1.8; color: #999; text-align: center; margin: 0;">
-  💬 你怎么看？评论区聊聊
-</p>
+<hr style="border: none; border-top: 1px solid #eee; margin: 1.5em 0 1.25em;" />
+<section style="text-align: center; margin: 0 0 0.5em;">
+  <span style="font-size: 14px; color: #999;">👆 觉得有用？点个<strong style="color: #fa5151;">「在看」</strong>让更多人看到</span>
+</section>
+<section style="text-align: center;">
+  <span style="font-size: 14px; color: #999;">💬 你怎么看？评论区聊聊</span>
+</section>
 ```
-
-互动引导区每篇文章都要有，措辞可以变化，但位置和样式保持一致。
-
-## 安卓字体适配
-
-安卓 WebView 有「文字大小调整」机制——在窄容器中会自动放大字体，导致标题换行、布局错乱。模板在外层 `<section>` 已加了 `-webkit-text-size-adjust: 100%; text-size-adjust: 100%` 来关闭此行为。
-
-内容转换时（步骤 2 生成的 HTML），如果自己加了外层容器，也必须带上这两个属性。
 
 ## 深色模式兼容
 
@@ -188,14 +237,11 @@
 
 | 规则 | 说明 |
 |------|------|
-| 不设背景色 | `<body>`、`<section>` 外层不设 background，让微信自动适配 |
-| 不用纯白文字 | 深色模式下纯白 (#fff) 太刺眼，用 `#e8e8e8` 或让微信自动处理 |
-| 文字用中性色 | `#333`/`#666`/`#999` 在深色模式下微信会自动反转 |
+| 不设背景色 | 外层 `<section>` 不设 background，让微信自动适配 |
+| 不用纯白文字 | 深色模式下纯白 (#fff) 太刺眼 |
+| 文字用中性色 | `#3f3f3f`/`#666`/`#999` 在深色模式下微信会自动反转 |
 | 背景色用浅灰 | `#f7f7f7` 比纯白在深色模式下表现更好 |
-| 强调色不要大面积 | `#fa5151` 只用于小元素（加粗、边框、圆点），不要做大面积背景 |
-| 图片加透明背景 | `background: transparent`，不要给图片加白色背景框 |
-
-模板文件已经遵循这些规则。内容转换时也要遵守。
+| 强调色不要大面积 | `#fa5151` 只用于小元素（加粗、边框、圆点） |
 
 ## 完整示例：一篇文章的结构
 
@@ -205,8 +251,9 @@
 ├─────────────────────────┤
 │                              │
 │  开头段落（选一种开头策略）      │
+│  <section> 包裹               │
 │                              │
-│  正文段落 1（15px, #333）       │
+│  正文段落 1（section, 15px）    │
 │                              │
 │  正文段落 2                    │
 │                              │
@@ -218,7 +265,7 @@
 │  正文段落 4                    │
 │                              │
 │  ────────────────             │
-│  章节标题（20px, 底线）         │
+│  章节标题（1.2em, 粗体+底线）   │
 │                              │
 │  ...更多内容...                │
 │                              │
@@ -232,14 +279,19 @@
 
 排版完成后，逐项检查：
 
-- [ ] 正文 15px，行高 ≥1.8
+- [ ] 所有内容块用 `<section>` 包裹（不用 `<p>` 做容器）
+- [ ] `<p>` 标签只用于纯文本行，不依赖其 margin/line-height
+- [ ] 正文 15px，行高在 `<section>` 容器上设置
+- [ ] 不依赖 `letter-spacing`（可能被过滤）
+- [ ] 不依赖 `text-indent`（不稳定）
+- [ ] 注释字号 ≥ 14px（微信最小值限制）
 - [ ] 连续纯文字 ≤3 段，中间有视觉断点
-- [ ] 章节标题有底线装饰
-- [ ] 段落首行不缩进，段间留白
-- [ ] 1500 字至少 2-3 个金句高亮
-- [ ] 1500 字至少 1 个组件（信息框/卡片/步骤卡）
+- [ ] 章节标题用粗体+底线装饰
+- [ ] 段落首行不缩进，段间用 section margin 控制
 - [ ] 结尾有互动引导区
 - [ ] 图片宽度 100%，有圆角
 - [ ] 无 `<ul>`/`<ol>`/`<li>` 标签
 - [ ] 强调色统一用 `#fa5151`
-- [ ] 深色模式兼容（无大面积背景色、无纯白文字）
+- [ ] 正文颜色不超过 3 种（不含图片）
+- [ ] 无斜体中文、无下划线（超链接除外）
+- [ ] 深色模式兼容（无大面积背景色）
