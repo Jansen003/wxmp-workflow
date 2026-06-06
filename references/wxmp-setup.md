@@ -375,7 +375,7 @@ rdt login
 ### 验证
 
 ```bash
-rdt r/technology --limit 1
+rdt sub technology -n 1 --compact
 ```
 
 能输出一条帖子内容即配置正确。

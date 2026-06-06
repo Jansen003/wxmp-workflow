@@ -136,13 +136,44 @@
 
 当 `topic_sources.custom` 中包含 Reddit 时才使用。通过连通性缓存决定访问方式：
 
-- `direct` / `proxy`：用 `rdt` 命令直接抓取
-  ```bash
-  rdt r/technology --limit 10
-  ```
+- `direct` / `proxy`：用 `rdt` 命令直接抓取（见下方命令速查）
 - `websearch`：用 WebSearch 搜索「Reddit r/technology today」间接获取
 
 默认 subreddit：`r/technology`、`r/worldnews`。用户可在配置中调整。
+
+**rdt-cli 命令速查：**
+
+```bash
+# 检查登录状态
+rdt status
+
+# 浏览 subreddit（选题用）
+rdt sub technology -s hot -n 10 --compact
+rdt sub technology -s top -t week -n 10 --compact    # 本周热门
+
+# 搜索（关键词选题用）
+rdt search "AI writing" -r technology -s top -t month -n 10 --compact
+rdt search "rust vs go" -s hot -n 5 --compact
+
+# 读帖子详情（感兴趣的话题深入看）
+rdt read <post_id> -n 20    # post_id 从 sub/search 输出中获取
+
+# 导出结果（批量处理）
+rdt export "machine learning" -r technology -n 50 -o /tmp/reddit.csv
+```
+
+**关键参数：**
+- `--compact` / `-c`：精简输出，agent 友好（选题时必加）
+- `--json`：输出 JSON 格式（需要结构化数据时用）
+- `-n` / `--limit`：结果数量
+- `-s` / `--sort`：排序方式（hot / new / top / rising）
+- `-t` / `--time`：时间范围（hour / day / week / month / year / all）
+- `-r` / `--subreddit`：限定 subreddit（search 命令用）
+
+**常见报错处理：**
+- `Not logged in` → 提示用户在 Chrome 登录 Reddit，然后 `rdt login`
+- `Rate limited` → 等 30 秒重试，或切换 websearch 方式
+- `Subreddit not found` → 检查 subreddit 名称拼写
 
 **搜索策略：**
 1. 用连通性缓存访问各信源，提取当前热门话题
