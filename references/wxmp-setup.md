@@ -118,7 +118,7 @@
 2. 全局 — 所有项目共享
 ```
 
-- 当前项目：`npx skills add <repo> -y`，直接装到项目 `.claude/skills/` 下，无需选择 Agent
+- 当前项目：`npx skills add <repo> -y`，直接装到项目 `.agents/skills/` 下，无需选择 Agent
 - 全局：`npx skills add <repo> -g -y`，装到 `~/.agent/` 下。用 `--all` 跳过 Agent 选择（装到所有 Agent），或用 `-a <agent>` 只装到当前 Agent。AI 需判断自己运行在哪个 Agent 工具中（如 Claude Code、Cursor 等），并确认该 Agent 在 `skills` 支持的列表中，再决定是否指定 `-a` 及用哪个 Agent 名称
 
 **网络提示：** `npx skills add` 需要从 GitHub 下载，国内可能访问不了。如果安装卡住或超时，提示用户配置代理后重试。
