@@ -64,7 +64,7 @@ font-family: -apple-system-font, BlinkMacSystemFont, Helvetica Neue, PingFang SC
 | 正文 | `<section>` | 15px | #3f3f3f | 手机端阅读基准 |
 | 引用块 | `<section>` | 15px | #666 | 灰色，左边框装饰 |
 | 注释/来源 | `<section>` | 14px | #999 | 不低于 14px |
-| 金句高亮 | `<section>` | 17px | #3f3f3f | 居中大字，20字以内 |
+| 金句高亮 | `<section>` | 17px | #3f3f3f | 短句居中，长句左对齐 |
 
 **行高控制：** 在 `<section>` 容器上设置 `line-height`（如 1.75），不要在 `<p>` 上设——会被覆盖。
 
@@ -135,13 +135,29 @@ font-family: -apple-system-font, BlinkMacSystemFont, Helvetica Neue, PingFang SC
 
 ### 金句高亮
 
+值得划线/转发的句子，用大号样式突出。
+
+**短金句（≤20 字，一行以内）— 居中：**
+
 ```html
 <section style="margin: 1.5em 0; padding: 1em; text-align: center;">
-  <span style="font-size: 17px; color: #3f3f3f;">金句内容，尽量控制在 20 字以内。</span>
+  <span style="font-size: 17px; color: #3f3f3f;">金句内容，控制在一行以内。</span>
 </section>
 ```
 
-一篇文章 1500 字至少有 2-3 个金句高亮。
+**长金句（>20 字，需要换行）— 左对齐：**
+
+```html
+<section style="margin: 1.5em 0; padding: 1em 1.25em; text-align: left;">
+  <span style="font-size: 17px; color: #3f3f3f;">较长的金句内容，超过一行时左对齐更舒适。<br/>手动换行比自动换行更可控。</span>
+</section>
+```
+
+规则：
+- 尽量控制在一行以内（≤20 字）
+- 超过一行时用左对齐，不要居中（居中多行很难看）
+- 需要断行时用 `<br/>` 手动换行，不要靠自动换行
+- 一篇文章 1500 字至少有 2-3 个金句高亮
 
 ## 开头策略
 
