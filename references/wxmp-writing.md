@@ -233,11 +233,10 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 
 ### 1. 选择并读取模板
 
-根据文章类型选择模板（见 `templates/README.md` 的选择策略），然后读取对应文件。模板中有 2 个占位符：
-- `{{TITLE}}` — 文章标题
+根据文章类型选择模板（见 `templates/README.md` 的选择策略），然后读取对应文件。模板中有 1 个通用占位符：
 - `{{CONTENT}}` — 正文 HTML
 
-> `card-style.html` 额外有 `{{WORD_COUNT}}` 占位符，替换为文章字数即可。
+> `card-style.html` 额外有 `{{WORD_COUNT}}` 占位符，替换为文章字数（如 `2350`）。标题不需要在模板中渲染——微信会自动显示。
 
 ### 2. 将 Markdown 转为内联样式 HTML
 
@@ -292,9 +291,10 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 ### 3. 替换模板占位符
 
 用 Read 读取模板文件全文，然后用 Write 写入最终 HTML 文件，替换占位符：
-- `{{TITLE}}` → 文章标题（纯文本，不含书名号）
 - `{{CONTENT}}` → 步骤 2 转换后的正文 HTML（整体替换，保留模板的 `<section>` 外壳）
 - `{{WORD_COUNT}}` → 仅 `card-style.html` 需要，替换为文章正文字数（如 `2350`）
+
+标题不需要渲染——微信会自动从草稿 metadata 中显示标题。
 
 **不要用 Edit 逐步替换**——模板文件不应被修改，直接 Write 输出文件即可。
 
