@@ -60,11 +60,16 @@ echo "" >&2
 ACCESS_TOKEN=$(bash "$SCRIPT_DIR/wx-auth.sh")
 
 # 查询单篇文章详细数据
-RESPONSE=$(curl -sf \
+RESPONSE=$(curl -s \
   -X POST \
   "https://api.weixin.qq.com/datacube/getarticletotal?access_token=${ACCESS_TOKEN}" \
   -H "Content-Type: application/json" \
   -d "{\"begin_date\": \"${BEGIN_DATE}\", \"end_date\": \"${END_DATE}\"}")
+
+if [ -z "$RESPONSE" ]; then
+  echo "❌ 查询失败: 服务器无响应" >&2
+  exit 1
+fi
 
 # 检查错误
 ERRCODE=$(echo "$RESPONSE" | jq -r '.errcode // empty')

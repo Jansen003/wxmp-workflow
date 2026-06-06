@@ -43,11 +43,16 @@ fi
 ACCESS_TOKEN=$(bash "$SCRIPT_DIR/wx-auth.sh")
 
 # 发送预览
-RESPONSE=$(curl -sf \
+RESPONSE=$(curl -s \
   -X POST \
   "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token=${ACCESS_TOKEN}" \
   -H "Content-Type: application/json" \
   -d "{\"towxname\": \"${WX_NAME}\", \"msgtype\": \"mpnews\", \"mpnews\": {\"media_id\": \"${MEDIA_ID}\"}}")
+
+if [ -z "$RESPONSE" ]; then
+  echo "❌ 预览发送失败: 服务器无响应" >&2
+  exit 1
+fi
 
 # 检查错误
 ERRCODE=$(echo "$RESPONSE" | jq -r '.errcode // empty')

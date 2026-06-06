@@ -94,6 +94,7 @@ ACCESS_TOKEN=$(bash "$SCRIPT_DIR/wx-auth.sh")
 
 if [ -n "$DRAFT_MEDIA_ID" ]; then
   # ========== 更新已有草稿 ==========
+  # draft/update 的 articles 是对象（单个文章），不是数组
   REQUEST_JSON=$(jq -n \
     --arg media_id "$DRAFT_MEDIA_ID" \
     --arg title "$TITLE" \
@@ -106,7 +107,7 @@ if [ -n "$DRAFT_MEDIA_ID" ]; then
     '{
       media_id: $media_id,
       index: 0,
-      articles: [
+      articles: (
         {
           title: $title,
           author: $author,
@@ -116,19 +117,25 @@ if [ -n "$DRAFT_MEDIA_ID" ]; then
           only_fans_can_comment: $fans_only
         }
         + (if $digest != "" then {digest: $digest} else {} end)
-      ]
+      )
     }')
 
-  RESPONSE=$(curl -sf \
+  RESPONSE=$(curl -s \
     -X POST \
     "https://api.weixin.qq.com/cgi-bin/draft/update?access_token=${ACCESS_TOKEN}" \
     -H "Content-Type: application/json" \
     -d "$REQUEST_JSON")
 
+  if [ -z "$RESPONSE" ]; then
+    echo "❌ 更新草稿失败: 服务器无响应" >&2
+    exit 1
+  fi
+
   ERRCODE=$(echo "$RESPONSE" | jq -r '.errcode // empty')
   if [ -n "$ERRCODE" ] && [ "$ERRCODE" != "0" ]; then
     ERRMSG=$(echo "$RESPONSE" | jq -r '.errmsg // "unknown error"')
     echo "❌ 更新草稿失败: [$ERRCODE] $ERRMSG" >&2
+    echo "请求体: $REQUEST_JSON" >&2
     exit 1
   fi
 
@@ -159,11 +166,16 @@ else
       ]
     }')
 
-  RESPONSE=$(curl -sf \
+  RESPONSE=$(curl -s \
     -X POST \
     "https://api.weixin.qq.com/cgi-bin/draft/add?access_token=${ACCESS_TOKEN}" \
     -H "Content-Type: application/json" \
     -d "$REQUEST_JSON")
+
+  if [ -z "$RESPONSE" ]; then
+    echo "❌ 创建草稿失败: 服务器无响应" >&2
+    exit 1
+  fi
 
   ERRCODE=$(echo "$RESPONSE" | jq -r '.errcode // empty')
   if [ -n "$ERRCODE" ]; then

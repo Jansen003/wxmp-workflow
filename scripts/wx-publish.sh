@@ -39,11 +39,16 @@ fi
 ACCESS_TOKEN=$(bash "$SCRIPT_DIR/wx-auth.sh")
 
 # 提交发布
-RESPONSE=$(curl -sf \
+RESPONSE=$(curl -s \
   -X POST \
   "https://api.weixin.qq.com/cgi-bin/freepublish/submit?access_token=${ACCESS_TOKEN}" \
   -H "Content-Type: application/json" \
   -d "{\"media_id\": \"${MEDIA_ID}\"}")
+
+if [ -z "$RESPONSE" ]; then
+  echo "❌ 提交发布失败: 服务器无响应" >&2
+  exit 1
+fi
 
 ERRCODE=$(echo "$RESPONSE" | jq -r '.errcode // empty')
 if [ -n "$ERRCODE" ]; then
@@ -74,7 +79,7 @@ while [ "$ELAPSED" -lt "$TIMEOUT" ]; do
   sleep "$INTERVAL"
   ELAPSED=$((ELAPSED + INTERVAL))
 
-  STATUS_RESPONSE=$(curl -sf \
+  STATUS_RESPONSE=$(curl -s \
     -X POST \
     "https://api.weixin.qq.com/cgi-bin/freepublish/get?access_token=${ACCESS_TOKEN}" \
     -H "Content-Type: application/json" \

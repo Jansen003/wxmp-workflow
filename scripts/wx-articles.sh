@@ -44,11 +44,16 @@ fi
 ACCESS_TOKEN=$(bash "$SCRIPT_DIR/wx-auth.sh")
 
 # 查询已发布文章
-RESPONSE=$(curl -sf \
+RESPONSE=$(curl -s \
   -X POST \
   "https://api.weixin.qq.com/cgi-bin/freepublish/batchget?access_token=${ACCESS_TOKEN}" \
   -H "Content-Type: application/json" \
   -d "{\"offset\": ${OFFSET}, \"count\": ${COUNT}, \"no_content\": ${NO_CONTENT}}")
+
+if [ -z "$RESPONSE" ]; then
+  echo "❌ 查询失败: 服务器无响应" >&2
+  exit 1
+fi
 
 # 检查错误
 ERRCODE=$(echo "$RESPONSE" | jq -r '.errcode // empty')

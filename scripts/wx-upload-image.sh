@@ -32,10 +32,15 @@ fi
 ACCESS_TOKEN=$(bash "$SCRIPT_DIR/wx-auth.sh")
 
 # 上传素材
-RESPONSE=$(curl -sf \
+RESPONSE=$(curl -s \
   -X POST \
   "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=${ACCESS_TOKEN}&type=${TYPE}" \
   -F "media=@${IMAGE_PATH}")
+
+if [ -z "$RESPONSE" ]; then
+  echo "❌ 上传失败: 服务器无响应" >&2
+  exit 1
+fi
 
 # 检查错误
 ERRCODE=$(echo "$RESPONSE" | jq -r '.errcode // empty')

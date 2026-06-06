@@ -78,7 +78,7 @@ echo "   提示词: $PROMPT" >&2
 echo "   尺寸: $SIZE" >&2
 
 # 调用 Agnes API
-RESPONSE=$(curl -sf \
+RESPONSE=$(curl -s \
   --max-time 120 \
   -X POST \
   "https://apihub.agnes-ai.com/v1/images/generations" \
@@ -97,6 +97,11 @@ RESPONSE=$(curl -sf \
       }
     }')")
 
+if [ -z "$RESPONSE" ]; then
+  echo "❌ 生成失败: 服务器无响应" >&2
+  exit 1
+fi
+
 # 检查错误
 if echo "$RESPONSE" | jq -e '.error' > /dev/null 2>&1; then
   ERROR_MSG=$(echo "$RESPONSE" | jq -r '.error.message // .error // "unknown error"')
@@ -114,7 +119,7 @@ fi
 
 # 下载图片
 echo "📥 下载图片..." >&2
-curl -sf -o "$OUTPUT" "$IMAGE_URL"
+curl -s -o "$OUTPUT" "$IMAGE_URL"
 
 if [ ! -f "$OUTPUT" ]; then
   echo "❌ 图片下载失败" >&2

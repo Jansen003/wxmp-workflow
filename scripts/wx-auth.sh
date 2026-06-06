@@ -49,7 +49,12 @@ if [ -f "$TOKEN_CACHE" ]; then
 fi
 
 # 请求新 token
-RESPONSE=$(curl -sf "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${SECRET}")
+RESPONSE=$(curl -s "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${SECRET}")
+
+if [ -z "$RESPONSE" ]; then
+  echo "❌ 获取 token 失败: 服务器无响应" >&2
+  exit 1
+fi
 
 # 检查错误
 ERRCODE=$(echo "$RESPONSE" | jq -r '.errcode // empty')

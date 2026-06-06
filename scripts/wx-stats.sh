@@ -56,11 +56,16 @@ TOTAL_FAVS=0
 HAS_DATA=false
 
 for DATE in "${DATES[@]}"; do
-  RESPONSE=$(curl -sf \
+  RESPONSE=$(curl -s \
     -X POST \
     "https://api.weixin.qq.com/datacube/getarticlesummary?access_token=${ACCESS_TOKEN}" \
     -H "Content-Type: application/json" \
     -d "{\"begin_date\": \"${DATE}\", \"end_date\": \"${DATE}\"}")
+
+  if [ -z "$RESPONSE" ]; then
+    echo "⚠️  查询 ${DATE} 失败: 服务器无响应" >&2
+    continue
+  fi
 
   ERRCODE=$(echo "$RESPONSE" | jq -r '.errcode // empty')
   if [ -n "$ERRCODE" ]; then
