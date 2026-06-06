@@ -55,31 +55,30 @@ font-family: -apple-system-font, BlinkMacSystemFont, Helvetica Neue, PingFang SC
 
 ### HTML 缩进规范
 
-生成的 HTML 内容使用 **2 空格缩进**，嵌套层级尽量浅：
+全文只用一级缩进（2 空格），禁止二级及以上缩进（4 空格、6 空格等）。
 
-- 每个内容块（`<section>`）顶格写，不缩进
-- 内部子元素缩进 2 空格
-- 不要出现 4 空格、6 空格的深层嵌套
-- 目标：扁平结构，一目了然
+- 所有标签统一缩进 2 空格，无论嵌套层级
+- 不要出现 4 空格或更深的缩进
+- 文本内容与标签同级缩进
 
 ```html
-<!-- ✅ 正确：扁平，2 空格缩进 -->
+<!-- ✅ 正确：所有标签统一 2 空格 -->
 <section style="margin: 0 0 1.25em; font-size: 15px; color: #3f3f3f;">
   正文段落内容。
 </section>
 
 <section style="margin: 1.25em 0; padding: 0.75em 1em; border-left: 3px solid #fa5151; background: #f7f7f7;">
   <section style="font-size: 14px; color: #666;">
-    💡 提示内容。
+  💡 提示内容。
   </section>
 </section>
 
-<!-- ❌ 错误：深层嵌进，看起来混乱 -->
-  <section style="...">
-      <section style="...">
-          <span>内容</span>
-      </section>
-  </section>
+<!-- ❌ 错误：出现 4 空格、6 空格缩进 -->
+<section style="...">
+    <section style="...">
+        <span>内容</span>
+    </section>
+</section>
 ```
 
 ## 字号体系
@@ -225,7 +224,7 @@ font-family: -apple-system-font, BlinkMacSystemFont, Helvetica Neue, PingFang SC
 ```html
 <section style="margin: 1.25em 0; padding: 0.75em 1em; border-left: 3px solid #fa5151; background: #f7f7f7; border-radius: 0 6px 6px 0;">
   <section style="font-size: 14px; color: #666;">
-    💡 提示内容写在这里。
+  💡 提示内容写在这里。
   </section>
 </section>
 ```
@@ -244,12 +243,12 @@ font-family: -apple-system-font, BlinkMacSystemFont, Helvetica Neue, PingFang SC
 ```html
 <section style="margin: 1.25em 0; padding: 0.75em 1em; border-left: 3px solid #07c160; background: #f0faf4; border-radius: 0 6px 6px 0;">
   <section style="font-size: 15px; color: #3f3f3f;">
-    <strong style="color: #07c160;">✅ 正确：</strong>具体示例
+  <strong style="color: #07c160;">✅ 正确：</strong>具体示例
   </section>
 </section>
 <section style="margin: 0.3em 0 1.25em; padding: 0.75em 1em; border-left: 3px solid #fa5151; background: #fef0f0; border-radius: 0 6px 6px 0;">
   <section style="font-size: 15px; color: #3f3f3f;">
-    <strong style="color: #fa5151;">❌ 错误：</strong>具体示例
+  <strong style="color: #fa5151;">❌ 错误：</strong>具体示例
   </section>
 </section>
 ```
@@ -259,7 +258,7 @@ font-family: -apple-system-font, BlinkMacSystemFont, Helvetica Neue, PingFang SC
 ```html
 <section style="margin: 1.25em 0; padding: 0.9em 1em; border-left: 3px solid #fa5151; background: #f7f7f7; border-radius: 0 6px 6px 0;">
   <section style="font-size: 15px; color: #3f3f3f;">
-    <strong style="color: #fa5151;">关键点</strong> — 核心内容描述
+  <strong style="color: #fa5151;">关键点</strong> — 核心内容描述
   </section>
 </section>
 ```
@@ -326,7 +325,7 @@ font-family: -apple-system-font, BlinkMacSystemFont, Helvetica Neue, PingFang SC
 
 - [ ] 所有内容块用 `<section>` 包裹（不用 `<p>` 做容器）
 - [ ] `<p>` 标签只用于纯文本行，不依赖其 margin/line-height
-- [ ] HTML 缩进：2 空格，层级扁平，无 4/6 空格深层嵌套
+- [ ] HTML 缩进：全文统一 2 空格，无 4 空格或更深缩进
 - [ ] 正文 15px，行高在 `<section>` 容器上设置
 - [ ] 不依赖 `letter-spacing`（可能被过滤）
 - [ ] 不依赖 `text-indent`（不稳定）

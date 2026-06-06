@@ -273,7 +273,7 @@ bash scripts/wx-upload-image.sh /path/to/image.jpg
 <!-- 卡片式列表（重点功能清单、组件介绍） -->
 <section style="margin:0 0 0.75em; padding:0.75em 1em; border-left:3px solid #fa5151; background:#f7f7f7; border-radius:6px;">
   <section style="font-size:15px; color:#3f3f3f;">
-    <strong style="color:#fa5151;">关键词</strong> — 具体说明内容
+  <strong style="color:#fa5151;">关键词</strong> — 具体说明内容
   </section>
 </section>
 
